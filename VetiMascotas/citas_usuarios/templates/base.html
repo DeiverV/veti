@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logoveti.png' %}" type="image/x-icon">
+    <title>Veti!</title>
+</head>
+<body>
+    <header>
+        <div id="header_container_tittle">
+            <img src="{% static 'img/logoveti.png' %}" alt="logo">
+            <h1>Veti</h1>
+        </div>
+        <nav id="barra_navegacion">
+            <a href="">Sobre nosotros</a>
+            <a href="">Citas</a>
+            <a href="">Doctores</a>
+            <a href="">Usuarios</a>
+            <form action="">
+                <input type="text" id="header_input_busqueda_citas" placeholder="Busca una cita">
+                <input type="submit" value="Buscar" id="hacer_busqueda_submit">
+            </form>
+        </nav>
+    </header>
+
+
+
+
+
+
+
+
+    <footer>
+        <div class="columna_footer" id="footer_tittlediv">
+            <img src="{% static 'img/logoveti.png' %}" alt="logo">
+            <p>Veti</p>
+        </div>
+        <div class="columna_footer">
+            <h4>Developed By</h4>
+            <p>
+                Deiber Verano - Deiberveranodev@gmail.com<br>
+                Tiziano Pieroni - Correoxd@gmail.com<br>
+                Fabricio Lattante - Correoxd@gmail.com<br>
+            </p>
+            <div>
+                <a href=""><img id="coderhouse-img" src="{% static 'img/coderhouse-logo.png' %}" alt="CoderHouse"></a>
+                <a href=""><img id="github-img" src="{% static 'img/githublogo.png' %}" alt="GitHub"></a>
+            </div>
+    </footer>
+</body>
+</html>

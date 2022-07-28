@@ -1,0 +1,172 @@
+html{
+    width: 100vw;
+    height: 100vh;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+}
+:root{
+    --color1: #1f8bd1;
+    --color2: #20abd9;
+    --color3: #4fdadf;
+    --color4: #b4edeb;
+    --color5: #f4efed;
+}
+
+
+@font-face {
+    font-family: vetitittle;
+    src: url('../fonts/Ultra-Regular.ttf');
+}
+@font-face {
+    font-family: Josefin-Bold;
+    src: url('../fonts/JosefinSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: Josefin-Medium;
+    src: url('../fonts/JosefinSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: Josefin-Medium-italic;
+    src: url('../fonts/JosefinSans-MediumItalic.ttf');
+}
+
+@font-face {
+    font-family: Josefin-Light;
+    src: url('../fonts/JosefinSans-Light.ttf');
+}
+
+@font-face {
+    font-family: Josefin-Light-italic;
+    src: url('../fonts/JosefinSans-LightItalic.ttf');
+}
+
+
+
+/*-------------------------------------------------------------------HEADER*/
+header{
+    width: 100%;
+    height: 9vh;
+    background-color: #0b0a08;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#header_container_tittle{
+    width: 90%;
+    height: 60%;
+    margin: auto;
+    font-family: vetitittle;
+    display: flex;
+    align-items: center;
+}
+
+#header_container_tittle h1{
+    margin: 0;
+    font-weight: lighter;
+}
+
+#header_container_tittle img{
+    width: 5vh;
+    padding: 0 2vh;
+}
+
+#barra_navegacion{
+    height: 40%;
+    width: 100%;
+    background-color: var(--color1);
+    display: flex;
+    align-items: center;
+}
+
+#barra_navegacion a{
+    flex: 1;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    font-family: Josefin-Medium;   
+}
+
+#barra_navegacion form{
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Josefin-Light;
+}
+
+#header_input_busqueda_citas{
+    padding: 0 1em;
+    border-radius: 10px 0 0 10px;
+    border: none;
+    height: 1.5em;
+}
+
+#header_input_busqueda_citas:focus{
+    outline: 0;
+}
+
+#hacer_busqueda_submit{
+    padding: 0 1em;
+    border: none;
+    height: 1.5em;
+    background-color: #0b0a08;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 30px 30px  0;
+}
+
+/*----------------------------------------------------------------------------------------------*/
+
+footer{
+    height: 35vh;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 0;
+    background-color: #0b0a08;
+    color: white;
+    border-bottom: #1f8bd1 20px solid;
+}
+
+.columna_footer{
+    width: 40%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    font-family: Josefin-Bold;
+}
+#footer_tittlediv{
+    align-items: center;
+}
+
+#footer_tittlediv img{
+    width: 9vw;
+}
+
+#footer_tittlediv p{
+    margin: 0;
+    font-size: 5em;
+    font-family: vetitittle;
+    font-weight: bolder;
+}
+
+#github-img{
+    height: 7vh;
+}
+
+#coderhouse-img{
+    height: 7vh;
+}

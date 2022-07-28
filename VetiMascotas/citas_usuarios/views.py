@@ -5,7 +5,7 @@ from citas_usuarios.models import Rol,Persona,Mascota
 
 def inicio(request):
     
-    return HttpResponse("hola unu")
+    return render(request,'base.html')
 
 def roles(request):
 
