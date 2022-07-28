@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 
 class Rol(models.Model):
@@ -24,7 +25,8 @@ class Mascota(models.Model):
         
 class CitaMedica(models.Model):
     veterinario = models.ForeignKey(Persona,on_delete=models.CASCADE,related_name='veterinario_requerido')
-    paciente = models.ForeignKey(Persona,on_delete=models.CASCADE,related_name='usuario_requerido')
-    fecha = models.DateTimeField()
-    mascota= models.ForeignKey(Mascota,on_delete=models.CASCADE)
+    paciente = models.ForeignKey(Persona,on_delete=models.CASCADE,related_name='usuario_requerido',null=True)
+    fecha = models.DateField()
+    hora = models.TimeField()
+    mascota= models.ForeignKey(Mascota,on_delete=models.CASCADE, null=True)
     especialidad = models.CharField(max_length=100)

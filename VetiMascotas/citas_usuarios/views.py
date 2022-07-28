@@ -1,11 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from citas_usuarios.forms import RolForm,UserForm,MascotaForm
-from citas_usuarios.models import Rol,Persona,Mascota
+from citas_usuarios.forms import RolForm,UserForm,MascotaForm,CitaForm
+from citas_usuarios.models import Rol,Persona,Mascota,CitaMedica
 
 def inicio(request):
     
-    return render(request,'base.html')
+    return render(request,'inicio.html')
 
 def roles(request):
 
@@ -17,9 +17,9 @@ def roles(request):
             rol_agregado.save()
             return HttpResponseRedirect('../')
     
-    rol_form = RolForm()
+    usuarios_form = RolForm()
 
-    return render(request,'rol.html', {'rol_form':rol_form})
+    return render(request,'usuario.html', {'usuarios_form':usuarios_form})
 
 def usuarios(request):
 
@@ -31,9 +31,9 @@ def usuarios(request):
             usuario_agregado.save()
             return HttpResponseRedirect('../')
 
-    rol_form = UserForm()
+    usuarios_form = UserForm()
 
-    return render(request,'rol.html', {'rol_form':rol_form})
+    return render(request,'usuario.html', {'usuarios_form':usuarios_form})
 
 def mascotas(request):
 
@@ -45,6 +45,20 @@ def mascotas(request):
             mascota_agregada.save()
             return HttpResponseRedirect('../')
 
-    rol_form = MascotaForm()
+    mascota_form = MascotaForm()
 
-    return render(request,'rol.html', {'rol_form':rol_form})
+    return render(request,'mascotas.html', {'mascota_form':mascota_form})
+
+def citas(request):
+
+    if request.method == 'POST':
+        form = CitaForm(request.POST)
+        if form.is_valid():
+            info = form.cleaned_data
+            cita_agregada = CitaMedica(veterinario=info['veterinario'] ,fecha = info['fecha'],hora=info['hora'],especialidad=info['especialidad'])
+            cita_agregada.save()
+            return HttpResponseRedirect('../')
+
+    cita_form = CitaForm()
+
+    return render(request,'citas.html', {'cita_form':cita_form})

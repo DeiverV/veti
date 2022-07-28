@@ -17,10 +17,10 @@
             <h1>Veti</h1>
         </div>
         <nav id="barra_navegacion">
-            <a href="">Sobre nosotros</a>
-            <a href="">Citas</a>
-            <a href="">Doctores</a>
-            <a href="">Usuarios</a>
+            <a href="{% url 'inicio' %}">Sobre nosotros</a>
+            <a href="{% url 'citas' %}">Citas</a>
+            <a href="{% url 'mascotas' %}">Mascotas</a>
+            <a href="{% url 'usuarios' %}">Usuarios</a>
             <form action="">
                 <input type="text" id="header_input_busqueda_citas" placeholder="Busca una cita">
                 <input type="submit" value="Buscar" id="hacer_busqueda_submit">
@@ -29,11 +29,13 @@
     </header>
 
     <section id="veti_container">
+        <div  id="veti_container_interno">
 
-        {% block blockname %}
-            
-        {% endblock blockname %}
-            
+            {% block bloqueSeccion %}
+                
+            {% endblock bloqueSeccion %}
+
+        </div>
     </section>
 
 

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+    <div class="div-creacion-registro">
+        <h3>Crea un usuario!</h3>
+        <form class="formulario-creacion" action="" method="post">
+            {% csrf_token %}
+            {{ usuarios_form.as_p }}
+            <input type="submit" value="Crear">
+        </form>
+    </div>
+{% endblock bloqueSeccion %}
+    
