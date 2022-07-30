@@ -39,6 +39,11 @@ body{
 }
 
 @font-face {
+    font-family: Josefin-Bold-Italic;
+    src: url('../fonts/JosefinSans-BoldItalic.ttf');
+}
+
+@font-face {
     font-family: Josefin-Medium;
     src: url('../fonts/JosefinSans-Medium.ttf');
 }
@@ -58,7 +63,9 @@ body{
     src: url('../fonts/JosefinSans-LightItalic.ttf');
 }
 
-
+h3{
+    margin: 0.5em;
+}
 
 /*-------------------------------------------------------------------HEADER*/
 header{
@@ -205,24 +212,31 @@ footer{
 
 .div-creacion-registro{
     width: 30%;
-    box-shadow: 0 0 20px 1px var(--color1);
-    border-radius: 20px;
-    background: white;
+    background: var(--color2);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-bottom: 3vh;
+    height: 100%;
+    color: white;
 }
 
 .div-creacion-registro h3{
     font-size: 2em;
     font-family: Josefin-Bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.div-creacion-registro img{
+    width: 4vw;
+    object-fit: contain;
 }
 
 .formulario-creacion{
     width: 90%;
-    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -257,4 +271,95 @@ footer{
 
 .formulario-creacion > input:hover{
     background-color: var(--color6);
+}
+
+/*---------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
+
+.contenedor-tabla-con-datos{
+    box-shadow: 0 0 20px 1px var(--color1);
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+    height: 80%;
+    overflow: auto;
+    background-image: url("../img/iconmonstr-cat-2-240.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.contenedor-tabla-con-datos h3{
+    font-family: Josefin-bold;
+    font-size: 1.6em;
+}
+
+.tabla-datos-modelos{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabla-datos-modelos thead{
+    width: 100%;
+    height: 3em;
+    background-color: var(--color2);
+    color: white;
+}
+
+.tabla-datos-modelos tbody{
+    width: 100%;
+    height: 2em;
+    font-family: Josefin-medium;
+}
+
+.tabla-datos-modelos  tr{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-top: none;
+}
+
+.tabla-datos-modelos tbody tr{
+    background-color: white;
+}
+
+.tabla-datos-modelos thead tr{
+    font-family: Josefin-bold-Italic;
+    border: none;
+}
+
+.tabla-datos-modelos tr th,td{
+    flex: 1;
+    text-align: center;
+}
+
+.tabla-datos-modelos button{
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 5px;
+    color: black;
+    transition: .2s;
+}
+
+.tabla-datos-modelos button a{
+    text-decoration: none;
+    color: black;
+    transition: .2s;
+}
+
+.modificar_registro_btn_tabla:hover{
+    background-color: var(--color3);
+    color: white  !important;
+}
+
+.eliminar_registro_btn_tabla:hover{
+    background-color: rgb(182, 14, 14);
+    color: white;
 }

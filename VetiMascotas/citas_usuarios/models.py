@@ -14,7 +14,7 @@ class Persona(models.Model):
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.nombre} - {self.cedula}'
+        return f'{self.nombre}'
 
 class Mascota(models.Model):
     amo = models.ForeignKey(Persona,on_delete=models.CASCADE)

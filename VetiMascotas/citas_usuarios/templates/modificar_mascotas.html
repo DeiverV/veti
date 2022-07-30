@@ -3,11 +3,11 @@
 {% load static %}
 
 {% block bloqueSeccion %}
-    <form action="{% url 'modifica_mascota' id %}" method="POST"> {% csrf_token %}
-        
-    {{miForm.as_p}}
-
-    <input type="submit" value="Guardar">
-</form>
-
-    {% endblock bloqueSeccion %}
+    <div class="div-creacion-registro">
+        <h3>Modificar Mascota!</h3>
+        <form  class="formulario-creacion" action="{% url 'modifica_mascota' id %}" method="POST"> {% csrf_token %}
+            {{miForm.as_p}}
+            <input type="submit" value="Guardar">
+        </form>
+    </div>
+{% endblock bloqueSeccion %}

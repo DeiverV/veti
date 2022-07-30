@@ -43,11 +43,12 @@ def mascotas(request):
             info = form.cleaned_data
             mascota_agregada = Mascota(amo=info['amo'] ,nombre = info['nombre'],tipo_animal = info['tipo_animal'], edad=info['edad'])
             mascota_agregada.save()
-            return HttpResponseRedirect('../')
+            return HttpResponseRedirect('./')
 
     mascota_form = MascotaForm()
+    lista_mascotas = Mascota.objects.all()
 
-    return render(request,'mascotas.html', {'mascota_form':mascota_form})
+    return render(request,'mascotas.html', {'mascota_form':mascota_form,'lista_mascotas': lista_mascotas})
 
 def citas(request):
 
@@ -63,13 +64,12 @@ def citas(request):
 
     return render(request,'citas.html', {'cita_form':cita_form})
 
-def leermascotas(request):
+def leer_mascotas(request):
     mascotas = Mascota.objects.all()
     contexto = {"mascotas": mascotas}
     return render(request, "lista_mascotas.html", contexto)
 
-
-def eliminarMascota(request, id):
+def eliminar_mascota(request, id):
 
     if request.method == 'POST':
 
@@ -81,11 +81,9 @@ def eliminarMascota(request, id):
 
         contexto = {"mascotas": mascotas}
 
-        return render(request, "lista_mascotas.html", contexto)
+        return HttpResponseRedirect('../mascotas')
 
-
-
-def modificarMascota(request, id):
+def modificar_mascota(request, id):
 
     mascota = Mascota.objects.get(id=id)
 
@@ -103,7 +101,7 @@ def modificarMascota(request, id):
             
             mascota.save()
 
-            return render(request, "inicio.html")
+            return HttpResponseRedirect('../mascotas')
     else:
         miForm = MascotaForm(initial={
             "amo": mascota.amo,
