@@ -112,7 +112,22 @@ header{
     text-decoration: none;
     color: white;
     text-align: center;
-    font-family: Josefin-Medium;   
+    font-family: Josefin-bold;   
+    transition: .2s;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+#barra_navegacion a:hover{
+    background-color: white;
+    color: var(--color1);
+}
+
+#barra_navegacion a:active{
+    font-family: Josefin-bold-italic;   
 }
 
 #barra_navegacion form{
