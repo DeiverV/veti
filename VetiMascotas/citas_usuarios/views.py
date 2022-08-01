@@ -110,3 +110,62 @@ def modificar_mascota(request, id):
             "edad": mascota.edad,
         })
         return render(request, "modificar_mascotas.html",{"miForm": miForm, "id": mascota.id})
+
+
+
+
+def lista_citas(request):
+    citas = CitaMedica.objects.all()
+    contexto = {"citas": citas}
+    return render(request, "lista_citas.html", contexto)
+
+
+
+def eliminar_cita(request, id):
+
+    if request.method == 'POST':
+
+        cita = CitaMedica.objects.get(id=id)
+
+        cita.delete()
+
+        citas = CitaMedica.objects.all()
+
+        contexto = {"citas": citas}
+
+        return HttpResponseRedirect('../citas')
+
+
+
+def modificar_cita(request, id):
+
+    cita = CitaMedica.objects.get(id=id)
+
+    if request.method == "POST":
+
+        miForm = CitaForm(request.POST)
+
+        if miForm.is_valid():
+
+            data = miForm.cleaned_data
+            
+            cita.veterinario = data["veterinario"]
+            cita.fecha = data["fecha"]
+            cita.hora = data["hora"]
+            cita.especialidad = data["especialidad"]
+            
+            cita.save()
+
+            return HttpResponseRedirect('../')
+    else:
+        miForm = CitaForm(initial={
+            "veterinario": cita.veterinario,
+            "paciente": cita.paciente,
+            "fecha": cita.fecha,
+            "hora": cita.hora,
+            "mascota": cita.mascota,
+            "especialidad": cita.especialidad,
+        })
+        return render(request, "modificar_cita.html",{"miForm": miForm, "id": cita.id})
+
+

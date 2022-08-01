@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block bloqueSeccion %}
+
+    <form action="{% url 'modifica_cita' id %}" method="POST"> {% csrf_token %}
+        
+    {{miForm.as_p}}
+
+    <input type="submit" value="Guardar">
+
+</form>
+
+    {% endblock bloqueSeccion %}
