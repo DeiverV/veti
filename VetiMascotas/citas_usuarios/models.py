@@ -14,7 +14,7 @@ class Persona(models.Model):
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.nombre}'
+        return f'{self.nombre} - {self.edad} - {self.rol} - {self.cedula}'
 
 class Mascota(models.Model):
     amo = models.ForeignKey(Persona,on_delete=models.CASCADE)
@@ -33,3 +33,7 @@ class CitaMedica(models.Model):
     hora = models.TimeField()
     mascota= models.ForeignKey(Mascota,on_delete=models.CASCADE, null=True)
     especialidad = models.CharField(max_length=100)
+
+    def __str__(self):
+
+        return f'{self.veterinario} - {self.paciente} - {self.fecha} - {self.hora} - {self.mascota} - {self.especialidad}'

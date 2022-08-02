@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+
+
+{% for c in citas %}
+    <li>{{c}}</li>
+    <div>
+        <form action="{% url 'elimina_cita' c.id %}" method="POST">{% csrf_token %}
+           <button type="submit">Eliminar</button>
+       </form>
+       <button>
+        <a href="{% url 'modifica_cita' c.id %}">Modificar</a>
+       </button>
+
+
+{% endfor %}
+    
+    
+{% endblock bloqueSeccion %}
