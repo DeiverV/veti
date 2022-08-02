@@ -5,3 +5,9 @@ El proyecto que decidimos hacer nuestro equipo es una web donde se puedan regist
 la url principal es veti/
 
 Quedamos al pendiente de cualquier cosa :) !!
+
+Grupo:
+
+-Fabricio Lattante
+-Tiziano Pieroni
+-Deiber Verano
