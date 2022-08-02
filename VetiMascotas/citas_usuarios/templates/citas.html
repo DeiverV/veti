@@ -3,6 +3,36 @@
 {% load static %}
 
 {% block bloqueSeccion %}
+    <div class="contenedor-tabla-con-datos">
+        <h3>Lista de Citas!</h3>
+        <table class="tabla-datos-modelos">
+            <thead>
+                <th>Veterinario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Especialidad</th>
+                <th>Eliminar</th>
+                <th>Editar</th>
+            </thead>
+            <tbody>
+                {% for cita in lista_citas %}
+                    <tr>
+                        <td>{{cita.veterinario}}</td>
+                        <td>{{cita.fecha}}</td>
+                        <td>{{cita.hora}}</td>
+                        <td>{{cita.especialidad}}</td>
+                        <td>
+                            <form action="{% url 'elimina_cita' cita.id %}" method="POST">{% csrf_token %}
+                                <button class="eliminar_registro_btn_tabla" type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                        <td><button class="modificar_registro_btn_tabla"><a href="{% url 'modifica_cita' cita.id %}">Modificar</a></button></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>      
+    </div>
+
     <div class="div-creacion-registro">
         <h3>Crea una cita!</h3>
         <form class="formulario-creacion" action="" method="post">

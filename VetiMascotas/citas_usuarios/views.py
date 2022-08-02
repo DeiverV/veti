@@ -1,3 +1,4 @@
+from tkinter import Widget
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from citas_usuarios.forms import RolForm,UserForm,MascotaForm,CitaForm
@@ -7,33 +8,8 @@ def inicio(request):
     
     return render(request,'inicio.html')
 
-def roles(request):
+#----------------------------------------------------------------------------VISTAS DE MODELO MASCOTAS
 
-    if request.method == 'POST':
-        form = RolForm(request.POST)
-        if form.is_valid():
-            info = form.cleaned_data
-            rol_agregado = Rol(nombre = info['nombre'])
-            rol_agregado.save()
-            return HttpResponseRedirect('../')
-    
-    usuarios_form = RolForm()
-
-    return render(request,'usuario.html', {'usuarios_form':usuarios_form})
-
-def usuarios(request):
-
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            info = form.cleaned_data
-            usuario_agregado = Persona(cedula=info['cedula'] ,nombre = info['nombre'], edad=info['edad'], rol=info['rol'])
-            usuario_agregado.save()
-            return HttpResponseRedirect('../')
-
-    usuarios_form = UserForm()
-
-    return render(request,'usuario.html', {'usuarios_form':usuarios_form})
 
 def mascotas(request):
 
@@ -49,25 +25,6 @@ def mascotas(request):
     lista_mascotas = Mascota.objects.all()
 
     return render(request,'mascotas.html', {'mascota_form':mascota_form,'lista_mascotas': lista_mascotas})
-
-def citas(request):
-
-    if request.method == 'POST':
-        form = CitaForm(request.POST)
-        if form.is_valid():
-            info = form.cleaned_data
-            cita_agregada = CitaMedica(veterinario=info['veterinario'] ,fecha = info['fecha'],hora=info['hora'],especialidad=info['especialidad'])
-            cita_agregada.save()
-            return HttpResponseRedirect('../')
-
-    cita_form = CitaForm()
-
-    return render(request,'citas.html', {'cita_form':cita_form})
-
-def leer_mascotas(request):
-    mascotas = Mascota.objects.all()
-    contexto = {"mascotas": mascotas}
-    return render(request, "lista_mascotas.html", contexto)
 
 def eliminar_mascota(request, id):
 
@@ -111,15 +68,23 @@ def modificar_mascota(request, id):
         })
         return render(request, "modificar_mascotas.html",{"miForm": miForm, "id": mascota.id})
 
+#----------------------------------------------------------------------------VISTAS DE MODELO CITAS
 
 
+def citas(request):
 
-def lista_citas(request):
+    if request.method == 'POST':
+        form = CitaForm(request.POST)
+        if form.is_valid():
+            info = form.cleaned_data
+            cita_agregada = CitaMedica(veterinario=info['veterinario'] ,fecha = info['fecha'],hora=info['hora'],especialidad=info['especialidad'])
+            cita_agregada.save()
+            return HttpResponseRedirect('../')
+
+    cita_form = CitaForm()
     citas = CitaMedica.objects.all()
-    contexto = {"citas": citas}
-    return render(request, "lista_citas.html", contexto)
 
-
+    return render(request,'citas.html', {'cita_form':cita_form,'lista_citas':citas})
 
 def eliminar_cita(request, id):
 
@@ -134,8 +99,6 @@ def eliminar_cita(request, id):
         contexto = {"citas": citas}
 
         return HttpResponseRedirect('../citas')
-
-
 
 def modificar_cita(request, id):
 
@@ -156,7 +119,7 @@ def modificar_cita(request, id):
             
             cita.save()
 
-            return HttpResponseRedirect('../')
+            return HttpResponseRedirect('../citas')
     else:
         miForm = CitaForm(initial={
             "veterinario": cita.veterinario,
@@ -168,11 +131,23 @@ def modificar_cita(request, id):
         })
         return render(request, "modificar_cita.html",{"miForm": miForm, "id": cita.id})
 
+#----------------------------------------------------------------------------VISTAS DE MODELO USUARIOS
 
-def lista_usuarios(request):
+
+def usuarios(request):
+
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            info = form.cleaned_data
+            usuario_agregado = Persona(cedula=info['cedula'] ,nombre = info['nombre'], edad=info['edad'], rol=info['rol'])
+            usuario_agregado.save()
+            return HttpResponseRedirect('../')
+
+    usuarios_form = UserForm()
     usuarios = Persona.objects.all()
-    contexto = {"usuarios": usuarios}
-    return render(request, "lista_usuarios.html", contexto)
+
+    return render(request,'usuario.html', {'usuarios_form':usuarios_form,'lista_usuario': usuarios})
 
 def modificar_usuario(request, id):
 
@@ -188,11 +163,10 @@ def modificar_usuario(request, id):
             usuario.nombre = data["nombre"]
             usuario.edad = data["edad"]
             usuario.rol = data["rol"]
-            usuario.cedula = data["cedula"]
 
             usuario.save()
 
-            return HttpResponseRedirect('../lista_usuarios')
+            return HttpResponseRedirect('../usuarios')
     else:
         miForm = UserForm(initial={
             "nombre": usuario.nombre,
