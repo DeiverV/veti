@@ -163,9 +163,57 @@ def modificar_cita(request, id):
             "paciente": cita.paciente,
             "fecha": cita.fecha,
             "hora": cita.hora,
-            "mascota": cita.mascota,
+            "mascota": cita.mascota,    
             "especialidad": cita.especialidad,
         })
         return render(request, "modificar_cita.html",{"miForm": miForm, "id": cita.id})
+
+
+def lista_usuarios(request):
+    usuarios = Persona.objects.all()
+    contexto = {"usuarios": usuarios}
+    return render(request, "lista_usuarios.html", contexto)
+
+def modificar_usuario(request, id):
+
+    usuario = Persona.objects.get(cedula=id)
+
+    if request.method == "POST":
+
+        miForm = UserForm(request.POST)
+
+        if miForm.is_valid():
+            data = miForm.cleaned_data
+
+            usuario.nombre = data["nombre"]
+            usuario.edad = data["edad"]
+            usuario.rol = data["rol"]
+            usuario.cedula = data["cedula"]
+
+            usuario.save()
+
+            return HttpResponseRedirect('../lista_usuarios')
+    else:
+        miForm = UserForm(initial={
+            "nombre": usuario.nombre,
+            "edad": usuario.edad,
+            "rol": usuario.rol,
+            "cedula": usuario.cedula,
+        })
+        return render(request, "modificar_usuario.html",{"miForm": miForm, "id": usuario.cedula})
+
+def eliminar_usuario(request, id):
+
+     if request.method == 'POST':
+
+        usuario = Persona.objects.get(cedula=id)
+
+        usuario.delete()
+
+        usuarios = Persona.objects.all()
+
+        contexto = {"usuarios": usuarios}
+
+        return HttpResponseRedirect ("../usuarios")
 
 
