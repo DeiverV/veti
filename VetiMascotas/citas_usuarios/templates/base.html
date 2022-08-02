@@ -21,8 +21,8 @@
             <a href="{% url 'citas' %}">Citas</a>
             <a href="{% url 'mascotas' %}">Mascotas</a>
             <a href="{% url 'usuarios' %}">Usuarios</a>
-            <form action="">
-                <input type="text" id="header_input_busqueda_citas" placeholder="Busca una cita">
+            <form action="{% url 'busqueda_cita' %}" method="GET">
+                <input type="text" id="header_input_busqueda_citas" name="header_input_busqueda_citas" placeholder="Busca una cita">
                 <input type="submit" value="Buscar" id="hacer_busqueda_submit">
             </form>
         </nav>

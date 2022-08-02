@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+    <div class="contenedor-tabla-con-datos">
+        <h3>Citas Encontradas!</h3>
+        <table class="tabla-datos-modelos">
+            <thead>
+                <th>Veterinario</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Especialidad</th>
+                <th>Disponible?</th>
+
+            </thead>
+            <tbody>
+                {% for cita in citas_encontradas %}
+                    <tr>
+                        <td>{{cita.veterinario}}</td>
+                        <td>{{cita.fecha}}</td>
+                        <td>{{cita.hora}}</td>
+                        <td>{{cita.especialidad}}</td>
+                        {% if cita.paciente == None %}
+                            <td>Si</td>
+                        {% else %}
+                            <td>No</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>      
+    </div>
+{% endblock bloqueSeccion %}
+    

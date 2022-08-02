@@ -8,6 +8,14 @@ def inicio(request):
     
     return render(request,'inicio.html')
 
+
+def busqueda_cita(request):
+    if request.method == 'GET':
+        busqueda = request.GET.get('header_input_busqueda_citas')
+        citas_encontradas = CitaMedica.objects.filter(especialidad__contains=busqueda)
+        return render(request,'busqueda_cita.html', {'citas_encontradas': citas_encontradas})
+    else:
+        return HttpResponseRedirect('./')
 #----------------------------------------------------------------------------VISTAS DE MODELO MASCOTAS
 
 
