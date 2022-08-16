@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import User
+from django.contrib.auth.models import User
 
 class Usuario(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True,)
@@ -8,5 +8,5 @@ class Usuario(models.Model):
     edad = models.IntegerField()
 
 class Veterinario(models.Model):
-    user_id = models.OneToOneField(Usuario,on_delete=models.CASCADE,primary_key=True)
-    nit = models.CharField()
+    user_id = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True,)
+    nit = models.IntegerField()

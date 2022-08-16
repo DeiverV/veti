@@ -1,8 +1,8 @@
-from tkinter import Widget
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from citas_usuarios.forms import RolForm,UserForm,MascotaForm,CitaForm
-from citas_usuarios.models import Rol,Persona,Mascota,CitaMedica,Persona
+from veti_auth.models import Usuario
+from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
+from citas_usuarios.models import Mascota,Cita
 
 def inicio(request):
     
@@ -12,7 +12,7 @@ def inicio(request):
 def busqueda_cita(request):
     if request.method == 'GET':
         busqueda = request.GET.get('header_input_busqueda_citas')
-        citas_encontradas = CitaMedica.objects.filter(especialidad__contains=busqueda)
+        citas_encontradas = Cita.objects.filter(especialidad__contains=busqueda)
         return render(request,'busqueda_cita.html', {'citas_encontradas': citas_encontradas})
     else:
         return HttpResponseRedirect('./')
@@ -85,12 +85,12 @@ def citas(request):
         form = CitaForm(request.POST)
         if form.is_valid():
             info = form.cleaned_data
-            cita_agregada = CitaMedica(veterinario=info['veterinario'] ,fecha = info['fecha'],hora=info['hora'],especialidad=info['especialidad'])
+            cita_agregada = Cita(veterinario=info['veterinario'] ,fecha = info['fecha'],hora=info['hora'],especialidad=info['especialidad'])
             cita_agregada.save()
             return HttpResponseRedirect('../')
 
     cita_form = CitaForm()
-    citas = CitaMedica.objects.all()
+    citas = Cita.objects.all()
 
     return render(request,'citas.html', {'cita_form':cita_form,'lista_citas':citas})
 
@@ -98,11 +98,11 @@ def eliminar_cita(request, id):
 
     if request.method == 'POST':
 
-        cita = CitaMedica.objects.get(id=id)
+        cita = Cita.objects.get(id=id)
 
         cita.delete()
 
-        citas = CitaMedica.objects.all()
+        citas = Cita.objects.all()
 
         contexto = {"citas": citas}
 
@@ -110,7 +110,7 @@ def eliminar_cita(request, id):
 
 def modificar_cita(request, id):
 
-    cita = CitaMedica.objects.get(id=id)
+    cita = Cita.objects.get(id=id)
 
     if request.method == "POST":
 
@@ -148,18 +148,18 @@ def usuarios(request):
         form = UserForm(request.POST)
         if form.is_valid():
             info = form.cleaned_data
-            usuario_agregado = Persona(cedula=info['cedula'] ,nombre = info['nombre'], edad=info['edad'], rol=info['rol'])
+            usuario_agregado = Usuario(cedula=info['cedula'] ,nombre = info['nombre'], edad=info['edad'], rol=info['rol'])
             usuario_agregado.save()
             return HttpResponseRedirect('../')
 
     usuarios_form = UserForm()
-    usuarios = Persona.objects.all()
+    usuarios = Usuario.objects.all()
 
     return render(request,'usuario.html', {'usuarios_form':usuarios_form,'lista_usuario': usuarios})
 
 def modificar_usuario(request, id):
 
-    usuario = Persona.objects.get(cedula=id)
+    usuario = Usuario.objects.get(cedula=id)
 
     if request.method == "POST":
 
@@ -188,11 +188,11 @@ def eliminar_usuario(request, id):
 
      if request.method == 'POST':
 
-        usuario = Persona.objects.get(cedula=id)
+        usuario = Usuario.objects.get(cedula=id)
 
         usuario.delete()
 
-        usuarios = Persona.objects.all()
+        usuarios = Usuario.objects.all()
 
         contexto = {"usuarios": usuarios}
 
