@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+
+    
+    {% if mensaje %}
+        <h1>{{mensaje}}</h1>
+    {% endif %}
+        
+    
+    {% if user_form.as_p %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ register_form.as_p }}
+            <input type="submit" value="enviar">
+        </form>
+    {% endif %}
+        
+{% endblock bloqueSeccion %}
+    
