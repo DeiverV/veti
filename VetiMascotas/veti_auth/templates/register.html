@@ -6,7 +6,13 @@
 
     
     {% if mensaje %}
-        <h1>{{mensaje}}</h1>
+        <h1>{{mensaje}}</h1><br>
+    {% endif %}
+
+    {% if errores %}
+        {% for error in errores %}
+            {{error}}
+        {% endfor %}
     {% endif %}
         
     
