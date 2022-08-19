@@ -25,7 +25,8 @@ body{
     --color3: #4fdadf;
     --color4: #b4edeb;
     --color5: #f4efed;
-    --color6: #0b0a08
+    --color6: #0b0a08;
+    --color7: #E3E300
 }
 
 
@@ -287,6 +288,221 @@ footer{
 .formulario-creacion > input:hover{
     background-color: var(--color6);
 }
+
+/*------------------------------------------------------------------REGISTER*/
+#veti_container_auth{
+    width: 100%;
+    height: 100vh;
+}
+
+#veti-container-interno-auth{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ir-atras-auth{
+    position: absolute;
+    top: 0;
+    right: 5vh;
+    width: 20%;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-img-atras-auth{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-img-atras-auth img{
+    width: 8vh;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.div-p-atras-auth{
+    width: 60%;
+    color: black;
+    font-size: 2em;
+    font-family: Josefin-bold-italic;
+    text-decoration: underline var(--color7) ;
+    text-align: center;
+}
+
+.div-p-atras-auth p{
+    cursor: pointer;
+}
+
+#contenedor-register{
+    width: 70%;
+    height: 75%;
+    background-color: #0b0a08;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.div-interno-register{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Josefin-Medium;
+}
+
+#formulario-registro{
+    width: 85%;
+    overflow: auto;
+}
+
+#formulario-registro input{
+    width: 95%;
+    height: 1.5em;
+    padding: 7px 0 7px 5px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.3em;
+    transition: .3s;
+}
+
+#formulario-registro input:focus{
+    outline: none;
+    background-color: var(--color7);
+    color: #0b0a08;
+}
+
+#label-es-vet{
+    display: flex;
+    align-items: center;
+    margin: 2em 0;
+    font-size: 1.2em;
+    font-family: Josefin-bold-italic;
+    color: var(--color7);
+}
+
+#label-es-vet input{
+    height: 1.4em;
+    width: 10%;
+    margin-right: 10px;
+}
+
+#formulario-registro h2{
+    width: 80%;
+    font-size: 2em;
+    font-family: Josefin-Bold;
+}
+
+#info-div-register{
+    width: 80%;
+    height: 70%;
+    background-color: var(--color7);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#div-img-info-register{
+    width: 90%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#div-img-info-register img{
+    width: 12vh;
+    object-fit: contain;
+}
+
+#div-text-info-register{
+    width: 90%;
+    height: 50%;
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+#label-NIT{
+    display: none;
+}
+
+.submit-auth-btn{
+    height: 2.5em !important;
+    background-color: var(--color7);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.submit-auth-btn:hover{
+    background-color: var(--color6);
+    outline: 2px solid var(--color7);
+    color: var(--color7);
+}
+
+#notifi-auth{
+    position: absolute;
+    top: -100%;
+    width: 40%;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.418);
+    transition: .3s;
+}
+
+.realizado-notif{
+    background-color: #1FD126;
+}
+
+.error-notif{
+    background-color: #D11F1F;
+}
+
+#notifi-auth p{
+    width: 60%;
+    font-size: 1.5em;
+    font-family: Josefin-light-italic;
+    color: white;
+    text-align: center;
+}
+
+.div-img-auth{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-img-auth img{
+    width: 8vh;
+    object-fit: contain;
+}
+
+
+#linea-abajo-register{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2vh;
+    background-color: var(--color7);
+}
+
 
 /*---------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
 

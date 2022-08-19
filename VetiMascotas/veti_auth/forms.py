@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Usuario
+from .models import Usuario, Veterinario
 
 class UserCreateForm(UserCreationForm):
 
@@ -14,15 +14,13 @@ class UserCreateForm(UserCreationForm):
         model=User
         fields=['username','password1','password2']
         help_texts={k:"" for k in fields}
-
-    def Duplicado(self):
-        username = self.cleaned_data['username']
-        if User.objects.get(username=username):
-            raise forms.ValidationError("Usuario ya existe")
-        return username
-
         
 class RegisterForm(ModelForm):
     class Meta:
         model=Usuario
         fields=["edad"]
+
+class VeterinarioForm(ModelForm):
+    class Meta:
+        model=Veterinario
+        fields=["nit"]

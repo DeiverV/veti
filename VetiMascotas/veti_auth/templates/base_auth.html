@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logoveti.png' %}" type="image/x-icon">
+</head>
+<body>
+    <section id="veti_container_auth">
+        <div class="ir-atras-auth">
+            <div class="div-p-atras-auth"><p>Atrás</p></div>
+            <div class="div-img-atras-auth">
+                <img src="{% static 'img/logoveti.png' %}" alt="" srcset="">
+            </div>
+        </div>
+        <div  id="veti-container-interno-auth">
+            {% block bloqueSeccionAuth %}
+            {% endblock bloqueSeccionAuth %}
+        </div>
+    </section>
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>
+        
+
