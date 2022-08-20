@@ -1,0 +1,41 @@
+{% extends 'base_auth.html' %}
+
+{% load static %}
+
+{% block bloqueSeccionAuth %}
+    {% if errores or mensaje %}
+    <div id="notifi-auth" class="error-notif">
+        <div class="div-img-auth">
+            <img src="{% static 'icons/gatomuerto.png' %}" alt="error" srcset="">
+        </div>
+        <p>{{errores}}</p> 
+    </div>
+    {% endif %}
+
+    {% if login_form.as_p %}
+    <div class="contenedor-auth">
+        <div id="div-form-login">
+            <form action="" method="post" id="formulario-login">
+                <h2>Inicia Sesion!</h2>
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <input type="submit" value="Login" id="submit-auth-login-btn">
+            </form>
+        </div>
+        <div class="div-interno-auth">
+            <div class="info-div-auth" id="info-div-login">
+                <div class="div-img-info-auth">
+                    <img src="{% static 'icons/gato.png' %}" alt="Perrito">
+                </div>
+                <div class="div-text-info-auth">
+                    <h3>¡Estamos esperandote!</h3>
+                    <p>Unete y mira que veterinarios estan al servicio de tu peludo</p>
+                    <a href="{% url 'register' %}" ><button class="go-to-other-auth-btn" id="go-to-register-btn">Crear una cuenta</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="linea-abajo-azul"></div>
+{% endblock bloqueSeccionAuth %}

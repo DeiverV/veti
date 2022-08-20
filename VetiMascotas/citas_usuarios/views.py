@@ -5,7 +5,9 @@ from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
 from citas_usuarios.models import Mascota,Cita
 
 def inicio(request):
-    
+    if request.user:
+        username = request.user.username.capitalize()
+        return render(request,"inicio.html",{"user":username})
     return render(request,'inicio.html')
 
 

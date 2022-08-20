@@ -13,19 +13,20 @@
     {% endif %}
 
     {% if user_form.as_p %}
-    <div id="contenedor-register">
-        <div class="div-interno-register">
-            <div id="info-div-register">
-                <div id="div-img-info-register">
+    <div class="contenedor-auth">
+        <div class="div-interno-auth">
+            <div class="info-div-auth">
+                <div class="div-img-info-auth">
                     <img src="{% static 'icons/medida.png' %}" alt="Perrito">
                 </div>
-                <div id="div-text-info-register">
+                <div class="div-text-info-auth">
                     <h3>¡Llegaste!</h3>
                     <p>Llena el formulario de registro para poder ingresar a la web!</p>
+                    <a href="{% url 'login' %}" ><button class="go-to-other-auth-btn" id="go-to-login-btn">Ya tengo una cuenta</button></a>
                 </div>
             </div>
         </div>
-        <div class="div-interno-register">
+        <div class="div-interno-auth">
             <form action="" method="post" id="formulario-registro">
                 <h2>Crea una cuenta!</h2>
                 {% csrf_token %}
@@ -33,11 +34,11 @@
                 {{ register_form.as_p }}
                 <label id="label-NIT" for="nit">NIT:<input type="number" name="nit" id="nit" placeholder="NIT" ></label>
                 <label id="label-es-vet" for="es_vet"><input name="es_vet" id="es_vet" type="checkbox">Soy Veterinario</label>
-                <input type="submit" value="Crear Cuenta" class="submit-auth-btn">
+                <input type="submit" value="Crear Cuenta" id="submit-auth-btn">
             </form>
         </div>
     </div>
     {% endif %}
 
-    <div id="linea-abajo-register"></div>
+    <div id="linea-abajo-amarilla"></div>
 {% endblock bloqueSeccionAuth %}

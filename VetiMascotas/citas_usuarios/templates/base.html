@@ -13,18 +13,34 @@
 <body>
     <header>
         <div id="header_container_tittle">
-            <img src="{% static 'img/logoveti.png' %}" alt="logo">
-            <h1>Veti</h1>
+            <div class="div-container-tittle">
+                <img src="{% static 'img/logoveti.png' %}" alt="logo">
+                <h1>Veti </h1>
+            </div>
+            {% if user %}
+            <div class="div-container-tittle">
+                <p>{{user}}</p>
+                <img src="{% static 'icons/mascotas.png' %}" alt="" srcset="">
+            </div>
+            {% endif %}
         </div>
         <nav id="barra_navegacion">
-            <a href="{% url 'inicio' %}">Sobre nosotros</a>
-            <a href="{% url 'citas' %}">Citas</a>
-            <a href="{% url 'mascotas' %}">Mascotas</a>
-            <a href="{% url 'usuarios' %}">Usuarios</a>
-            <form action="{% url 'busqueda_cita' %}" method="GET">
-                <input type="text" id="header_input_busqueda_citas" name="header_input_busqueda_citas" placeholder="Busca una cita">
-                <input type="submit" value="Buscar" id="hacer_busqueda_submit">
-            </form>
+            {% if user %}
+                <form action="{% url 'busqueda_cita' %}" method="GET">
+                    <input type="text" id="header_input_busqueda_citas" name="header_input_busqueda_citas" placeholder="Busca una cita">
+                    <input type="submit" value="Buscar" id="hacer_busqueda_submit">
+                </form>
+                <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                <a href="{% url 'inicio' %}">Sobre nosotros</a>
+                <a href="{% url 'citas' %}">Citas</a>
+                <a href="{% url 'mascotas' %}">Mascotas</a>
+                <a href="{% url 'usuarios' %}">Usuarios</a>
+            {% else %}
+            <div id="btns-auth-header">
+                <a href="{% url 'register' %}">Register</a>
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+            {% endif %}
         </nav>
     </header>
 
