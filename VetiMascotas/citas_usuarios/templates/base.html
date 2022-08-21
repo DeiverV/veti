@@ -13,10 +13,10 @@
 <body>
     <header>
         <div id="header_container_tittle">
-            <div class="div-container-tittle">
+            <a href="{% url 'inicio' %}" class="div-container-tittle">
                 <img src="{% static 'img/logoveti.png' %}" alt="logo">
                 <h1>Veti </h1>
-            </div>
+            </a>
             {% if user %}
             <div class="div-container-tittle">
                 <p>{{user}}</p>
@@ -69,7 +69,6 @@
                 Fabricio Lattante - FabricioLattante722@gmail.com<br>
             </p>
             <div>
-                <a href=""><img id="coderhouse-img" src="{% static 'img/coderhouse-logo.png' %}" alt="CoderHouse"></a>
                 <a href=""><img id="github-img" src="{% static 'img/githublogo.png' %}" alt="GitHub"></a>
             </div>
     </footer>

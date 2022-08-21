@@ -91,6 +91,11 @@ header{
     justify-content: space-between;
 }
 
+#header_container_tittle a{
+    text-decoration: none;
+    color: white;
+}
+
 .div-container-tittle{
     display: flex;
     justify-content: center;
@@ -179,7 +184,7 @@ header{
     border-radius: 0 30px 30px  0;
 }
 
-/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------FOOTER*/
 
 footer{
     height: 35vh;
@@ -226,7 +231,7 @@ footer{
     height: 7vh;
 }
 
-/*----------------------body*/
+/*------------------------------------------------------------------------------BODY*/
 
 #veti_container{
     width: 100%;
@@ -308,7 +313,7 @@ footer{
     background-color: var(--color6);
 }
 
-/*------------------------------------------------------------------REGISTER*/
+/*--------------------------------------------------------------------------------REGISTER*/
 #veti_container_auth{
     width: 100%;
     height: 100vh;
@@ -549,7 +554,7 @@ footer{
     background-color: var(--color7);
 }
 
-/*---------------------------------------------------------------------------LOGIN*/
+/*-----------------------------------------------------------------------------------------LOGIN*/
 
 #div-form-login{
     height:100%;
@@ -624,7 +629,97 @@ footer{
     background-color: var(--color1);
     color: white;
 }
-/*---------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
+
+/*---------------------------------------------------------------------------INICIO*/
+
+#contenedor-inicio{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#tittle-inicio{
+    width: 60%;
+    height: 10%;
+    border-bottom: 2px  solid black;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: Josefin-Bold;
+}
+
+#contenedor-tarjetas-inicio{
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tarjeta-inicio{
+    width: 30%;
+    height: 90%;
+    box-shadow: 10px 6px 20px rgba(0, 0, 0, 0.445);
+    font-size: 2em;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color1);
+    color: white;
+    transition: .3s;
+}
+
+.tarjeta-inicio:hover{
+    background-color: var(--color6);
+    color: var(--color7);
+}
+
+.div-img-tarjeta-inicio{
+    width: 9vh;
+}
+
+.div-img-tarjeta-inicio img{
+    width: 9vh;
+    object-fit: contain;
+}
+
+.div-info-tarjeta-inicio{
+    text-align: center;
+    width: 90%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-info-tarjeta-inicio h3{
+    font-family: Josefin-bold;
+    text-shadow: 0 0 10px 1px white;
+}
+
+.div-info-tarjeta-inicio p{
+    font-family: Josefin-light;
+}
+
+.info2-tarjeta{
+    border-top: 10px solid white;
+    width: 100%;
+    height: 30%;
+    font-size: .9em;
+}
+
+.info2-tarjeta p{
+    margin: auto;
+    width: 80%;
+    font-family: Josefin-bold-italic;
+}
+
+/*----------------------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
 
 .contenedor-tabla-con-datos{
     box-shadow: 0 0 20px 1px var(--color1);
