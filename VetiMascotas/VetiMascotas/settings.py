@@ -86,6 +86,9 @@ DATABASES = {
         'PASSWORD': 'dac426599b567fccd907f996984774556e632943bf84fbfd680334741688e451',
         'HOST': 'ec2-34-199-68-114.compute-1.amazonaws.com',
         'PORT': '5432',
+        'OPTIONS':{
+            'sslmode': 'require'
+        }
     }
 }
 
@@ -108,6 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+LOGIN_URL = "/veti_auth/login"
+LOGOUT_REDIRECT_URL ="/veti"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

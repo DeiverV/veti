@@ -3,12 +3,17 @@ from django.shortcuts import render
 from veti_auth.models import Usuario
 from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
 from citas_usuarios.models import Mascota,Cita
+from django.contrib.auth.decorators import login_required
 
 def inicio(request):
     if request.user:
         username = request.user.username.capitalize()
         return render(request,"inicio.html",{"user":username})
     return render(request,'inicio.html')
+
+@login_required
+def sobre_nosotros(request):
+    return render(request,'sobre_nosotros.html')
 
 
 def busqueda_cita(request):

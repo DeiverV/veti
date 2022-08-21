@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+    <div id="contenedor-sobre-nosotros">
+        <h1>Quienes desarrollaron.</h1>
+        <div class="contenedor-info-developer">
+            <div class="img-developer">
+                <img src="{% static 'img/deiberV.jpeg' %}" alt="foto de deiber">
+            </div>
+            <div class="info-developer">
+                <h3>Deiber Verano</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis iusto corrupti, reiciendis optio tempore pariatur tempora nisi quasi facilis possimus totam quo numquam mollitia ab. Doloribus ratione eligendi dolorum. Commodi!</p>
+            </div>
+            <div class="redes-developer">
+                <a href="https://www.linkedin.com/in/deiber-verano/" target="_blank"><img src="{% static 'icons/linkedinblanco.png' %}" alt="">LinkedIn</a>
+                <a href="https://github.com/DeiverV" target="_blank"><img src="{% static 'icons/githubblanco.png' %}" alt="">Github</a>
+                <a href="http://deiber-verano-portfolio.herokuapp.com/" target="_blank"><img src="{% static 'icons/linkblanco.png' %}" alt="">Adicional</a>
+            </div>
+        </div>
+        <div class="contenedor-info-developer">
+            <div class="img-developer">
+                <img src="{% static 'img/.jpeg' %}" alt="foto de fabri">
+            </div>
+            <div class="info-developer">
+                <h3>Fabricio Lattante</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis iusto corrupti, reiciendis optio tempore pariatur tempora nisi quasi facilis possimus totam quo numquam mollitia ab. Doloribus ratione eligendi dolorum. Commodi!</p>
+            </div>
+            <div class="redes-developer">
+                <a href="" target="_blank"><img src="{% static 'icons/linkedinamarillo.png' %}" alt="">LinkedIn</a>
+                <a href="" target="_blank"><img src="{% static 'icons/githublogo.png' %}" alt="">Github</a>
+                <a href="" target="_blank"><img src="{% static 'icons/linkamarillo.png' %}" alt="">Adicional</a>
+            </div>
+        </div>
+        <div class="contenedor-info-developer">
+            <div class="img-developer">
+                <img src="{% static 'img/.jpeg' %}" alt="foto de tizini">
+            </div>
+            <div class="info-developer">
+                <h3>Tizini</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis iusto corrupti, reiciendis optio tempore pariatur tempora nisi quasi facilis possimus totam quo numquam mollitia ab. Doloribus ratione eligendi dolorum. Commodi!</p>
+            </div>
+            <div class="redes-developer">
+                <a href="" target="_blank"><img src="{% static 'icons/linkedinblanco.png' %}" alt="">LinkedIn</a>
+                <a href="" target="_blank"><img src="{% static 'icons/githubblanco.png' %}" alt="">Github</a>
+                <a href="" target="_blank"><img src="{% static 'icons/linkblanco.png' %}" alt="">Adicional</a>
+            </div>
+        </div>
+    </div>
+{% endblock bloqueSeccion %}
+    

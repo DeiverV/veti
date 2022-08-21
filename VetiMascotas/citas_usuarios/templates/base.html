@@ -31,7 +31,7 @@
                     <input type="submit" value="Buscar" id="hacer_busqueda_submit">
                 </form>
                 <a href="{% url 'logout' %}">Cerrar Sesión</a>
-                <a href="{% url 'inicio' %}">Sobre nosotros</a>
+                <a href="{% url 'sobre_nosotros' %}">Sobre nosotros</a>
                 <a href="{% url 'citas' %}">Citas</a>
                 <a href="{% url 'mascotas' %}">Mascotas</a>
                 <a href="{% url 'usuarios' %}">Usuarios</a>
@@ -69,8 +69,10 @@
                 Fabricio Lattante - FabricioLattante722@gmail.com<br>
             </p>
             <div>
-                <a href=""><img id="github-img" src="{% static 'img/githublogo.png' %}" alt="GitHub"></a>
+                <a href=""><img id="github-img" src="{% static 'icons/githublogo.png' %}" alt="GitHub"></a>
             </div>
     </footer>
+
+    <script src="{% static 'js/about.js' %}"></script>
 </body>
 </html>
