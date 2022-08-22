@@ -5,9 +5,9 @@ from veti_auth.models import Usuario, Veterinario
 class Mascota(models.Model):
     amo = models.ForeignKey(Usuario,on_delete=models.CASCADE)
     nombre = models.CharField(max_length=30)
+    edad = models.IntegerField()
     tipo_animal = models.CharField(max_length=30)
     raza = models.CharField(max_length=30)
-    edad = models.IntegerField()
     imagen = models.ImageField(upload_to="mascotas")
 
 class Publicacion(models.Model):
@@ -26,8 +26,8 @@ class Local(models.Model):
 
 class Cita(models.Model):
     veterinario = models.ForeignKey(Veterinario, on_delete=models.CASCADE)
-    cliente  = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
+    cliente  = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True)
+    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, blank=True)
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
     fecha = models.DateTimeField()
     especialidad = models.ImageField(max_length=100)

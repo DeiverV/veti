@@ -32,14 +32,14 @@ def mascotas(request):
         form = MascotaForm(request.POST)
         if form.is_valid():
             info = form.cleaned_data
-            mascota_agregada = Mascota(amo=info['amo'] ,nombre = info['nombre'],tipo_animal = info['tipo_animal'], edad=info['edad'])
+            mascota_agregada = Mascota(amo=info['amo'] ,nombre = info['nombre'],edad = info['edad'], tipo_animal = info['tipo_animal'], raza=info['raza'], imagen=info['imagen'])
             mascota_agregada.save()
             return HttpResponseRedirect('./')
 
     mascota_form = MascotaForm()
     lista_mascotas = Mascota.objects.all()
 
-    return render(request,'mascotas.html', {'mascota_form':mascota_form,'lista_mascotas': lista_mascotas})
+    return render(request,'mascotas.html', {'mascota_form': mascota_form, 'lista_mascotas': lista_mascotas})
 
 def eliminar_mascota(request, id):
 
@@ -69,7 +69,9 @@ def modificar_mascota(request, id):
             mascota.amo = data["amo"]
             mascota.nombre = data["nombre"]
             mascota.tipo_animal = data["tipo_animal"]
+            mascota.raza = data["raza"]
             mascota.edad = data["edad"]
+            mascota.imagen = data["imagen"]
             
             mascota.save()
 
@@ -79,7 +81,9 @@ def modificar_mascota(request, id):
             "amo": mascota.amo,
             "nombre": mascota.nombre,
             "tipo_animal": mascota.tipo_animal,
+            "raza": mascota.raza,
             "edad": mascota.edad,
+            "imagen": mascota.imagen,
         })
         return render(request, "modificar_mascotas.html",{"miForm": miForm, "id": mascota.id})
 
@@ -92,13 +96,12 @@ def citas(request):
         form = CitaForm(request.POST)
         if form.is_valid():
             info = form.cleaned_data
-            cita_agregada = Cita(veterinario=info['veterinario'] ,fecha = info['fecha'],hora=info['hora'],especialidad=info['especialidad'])
+            cita_agregada = Cita(veterinario=info['veterinario'] ,local = info['local'] ,fecha=info['fecha'] ,hora=info['hora'] ,especialidad=info['especialidad'])
             cita_agregada.save()
-            return HttpResponseRedirect('../')
+            return HttpResponse
 
     cita_form = CitaForm()
-    citas = Cita.objects.all()
-
+    citas = Cita.objects.all
     return render(request,'citas.html', {'cita_form':cita_form,'lista_citas':citas})
 
 def eliminar_cita(request, id):
@@ -128,6 +131,7 @@ def modificar_cita(request, id):
             data = miForm.cleaned_data
             
             cita.veterinario = data["veterinario"]
+            cita.local = data["local"]
             cita.fecha = data["fecha"]
             cita.hora = data["hora"]
             cita.especialidad = data["especialidad"]
@@ -138,10 +142,9 @@ def modificar_cita(request, id):
     else:
         miForm = CitaForm(initial={
             "veterinario": cita.veterinario,
-            "paciente": cita.paciente,
+            "local": cita.local,
             "fecha": cita.fecha,
-            "hora": cita.hora,
-            "mascota": cita.mascota,    
+            "hora": cita.hora,   
             "especialidad": cita.especialidad,
         })
         return render(request, "modificar_cita.html",{"miForm": miForm, "id": cita.id})

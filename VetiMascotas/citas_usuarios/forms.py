@@ -10,12 +10,17 @@ class UserForm(forms.Form):
     edad = forms.IntegerField()
 
 class MascotaForm(forms.Form):
-    nombre = forms.CharField(max_length=20)   
-    tipo_animal = forms.CharField(max_length=20)   
-    edad = forms.IntegerField()
+    Amo = forms.CharField(max_length=20)
+    Nombre = forms.CharField(max_length=20)   
+    Edad = forms.IntegerField()
+    Tipo_animal = forms.CharField(max_length=20)
+    Raza = forms.CharField(max_length=20) 
+    Foto = forms.ImageField() 
 
 
 class CitaForm(forms.Form):
+    veterinario = forms.CharField(max_length=30)
+    local = forms.CharField()
     fecha = forms.DateTimeField(widget=DatePickerInput)
     hora = forms.TimeField(widget=TimePickerInput) 
-    especialidad = forms.CharField(max_length=30)   
+    especialidad = forms.CharField(max_length=30)

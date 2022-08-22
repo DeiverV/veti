@@ -12,6 +12,8 @@
                 <th>Nombre</th>
                 <th>Edad</th>
                 <th>Tipo de Animal</th>
+                <th>Raza</th>
+                <th>Foto</th>
                 <th>Eliminar</th>
                 <th>Editar</th>
             </thead>
@@ -22,6 +24,8 @@
                         <td>{{mascota.nombre}}</td>
                         <td>{{mascota.edad}}</td>
                         <td>{{mascota.tipo_animal}}</td>
+                        <td>{{mascota.raza}}</td>
+                        <td>{{mascota.imagen}}</td>
                         <td>
                             <form action="{% url 'elimina_mascota' mascota.id %}" method="POST">{% csrf_token %}
                                 <button class="eliminar_registro_btn_tabla" type="submit">Eliminar</button>
