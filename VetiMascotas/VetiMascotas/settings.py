@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 LOGIN_URL = "/veti_auth/login"
-LOGOUT_REDIRECT_URL ="/veti"
+LOGOUT_REDIRECT_URL ="/veti_auth/login"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
