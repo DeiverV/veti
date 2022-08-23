@@ -8,6 +8,7 @@ body{
     height: 100vh;
 }
 
+
 *::-webkit-scrollbar{
     background: white;
     width: 8px;
@@ -242,11 +243,12 @@ footer{
 }
 
 #veti_container_interno{
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: auto;
+    overflow-x: hidden;
 }
 
 .div-creacion-registro{
@@ -746,7 +748,6 @@ footer{
     justify-content: space-between;
     align-items: center;
     margin-bottom: 50px;
-    border-radius: 30px;
     box-shadow: 10px 6px 20px 1px rgba(0, 0, 0, 0.445);
     transition: .5s;
 }
@@ -756,12 +757,14 @@ footer{
     color: white;
     align-self: flex-end;
     right: -100%;
+    border-radius: 30px 0 0 30px;
 }
 
 .contenedor-info-developer:nth-child(odd){
     background-color: var(--color6);
     color: var(--color7);
     left: -100%;
+    border-radius: 0 30px 30px 0;
 }
 
 
@@ -817,6 +820,208 @@ footer{
     object-fit: contain;
     margin-right: 20px;
 }
+
+/*-------------------------------------------------------------------------------------PERFIL DE USUARIO*/
+
+#contenedor-perfil{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.contenedor-info-usuario{
+    width: 30%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    word-break: break-word;
+}
+
+.contenedor-identidad-usuario{
+    width: 100%;
+    height: 50%;
+}
+
+.contenedor-avatar{
+    width: 90%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-avatar img{
+    border-radius: 50%;
+    width: 25vh;
+    object-fit: contain;
+}
+
+.contenedor-nombre{
+    width: 90%;
+    height: 30%;
+    text-align: center;
+    color: var(--color6);
+    font-family: Josefin-Bold;
+    font-size: 2em;
+}
+.contenedor-nombre h3{
+    margin: 0;
+}
+
+.contenedor-nombre p{
+    font-size: .8em;
+    margin: 0;
+}
+
+.contenedor-bio-btns{
+    width: 90%;
+    height: 50%;
+}
+
+.bio-usuario{
+    width: 90%;
+    height: 55%;
+    text-align: center;
+    color: var(--color6);
+    font-family: Josefin-medium-italic;
+    font-size: 1.2em;
+    overflow: auto;
+    word-break: break-word;
+}
+
+.botones-perfil{
+    width: 100%;
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.botones-perfil button{
+    cursor: pointer;
+    font-size: 1.5em;
+    font-family: Josefin-Medium;
+    display: grid;
+    place-items: center;
+    background-color: transparent;
+    border: none;
+}
+
+.botones-perfil button img{
+    width: 9vh;
+    object-fit: contain;
+}
+
+.contenedor-mascotas-perfil{
+    width: 60%;
+    margin-left: 8%;
+    height: 95%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 30px 0 0 30px;
+    background-color: var(--color1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-family: Josefin-Bold;
+    color: white;
+}
+
+.formateo-mascotas-perfil{
+    width: 90%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.formateo-mascotas-perfil h2{
+    width: 100%;
+    border-left: 3px white solid;
+    padding-left: 10px;
+    font-size: 2em;
+}
+
+.contenedor-lista-mascotas{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: auto;
+}
+
+.mascota-en-perfil{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid   white;
+}
+
+.contenedor-img-mascota{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor-img-mascota img{
+    width: 8vh;
+    object-fit: contain;
+}
+
+.contenedor-info-mascota{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.contenedor-info-mascota h5{
+    font-size: 1.5em;
+    margin: 0;
+}
+.contenedor-info-mascota p{
+    font-size: 1.2em;
+    font-family: Josefin-light-italic;
+    margin: 0;
+}
+
+.botones-mascota{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botones-mascota button{
+    border: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botones-mascota img{
+    width: 8vh;
+    object-fit: contain;
+}
+
+
+
+
 
 
 /*----------------------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/

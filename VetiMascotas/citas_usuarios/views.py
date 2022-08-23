@@ -15,6 +15,10 @@ def inicio(request):
 def sobre_nosotros(request):
     return render(request,'sobre_nosotros.html')
 
+@login_required
+def perfil(request):
+    return render(request,'perfil.html')
+
 
 def busqueda_cita(request):
     if request.method == 'GET':

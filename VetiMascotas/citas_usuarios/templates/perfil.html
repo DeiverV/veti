@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+    <div id="contenedor-perfil">
+        <div class="contenedor-info-usuario">
+            <div class="contenedor-identidad-usuario">
+                <div class="contenedor-avatar">
+                    <img src="{% static 'icons/mascotas.png' %}" alt="">
+                </div>
+                <div class="contenedor-nombre">
+                    <h3>Username</h3>
+                    <p>X años</p>
+                </div>
+            </div>
+            <div class="contenedor-bio-btns">
+                <div class="bio-usuario">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nisi ipsum suscipit amet quod in ea vitae ab similique reiciendis veniam enim laboriosam repudiandae tempora cupiditate, at alias minima blanditiis!</p>
+                </div>
+                <div class="botones-perfil">
+                    <button>
+                        <img src="{% static 'icons/paw.png' %}" alt="">
+                        Agregar Una Mascota
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor-mascotas-perfil">
+            <div class="formateo-mascotas-perfil">
+                <h2>Mascotas de Username</h2>
+                <div class="contenedor-lista-mascotas">
+                    <div class="mascota-en-perfil">
+                        <div class="contenedor-img-mascota">
+                            <img src="{% static 'icons/mascotas.png' %}" alt="">
+                        </div>
+                        <div class="contenedor-info-mascota">
+                            <h5>Nombre de mascota</h5>
+                            <p>Tipo animal - Raza</p>
+                            <p>Edad</p>
+                        </div>
+                        <div class="botones-mascota">
+                            <button><img src="{% static 'icons/mascotas.png' %}" alt=""></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock bloqueSeccion %}
+    

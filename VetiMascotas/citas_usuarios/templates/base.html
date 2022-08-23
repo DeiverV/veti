@@ -18,10 +18,10 @@
                 <h1>Veti </h1>
             </a>
             {% if user %}
-            <div class="div-container-tittle">
+            <a href="{% url 'perfil' %}" class="div-container-tittle">
                 <p>{{user}}</p>
                 <img src="{% static 'icons/mascotas.png' %}" alt="" srcset="">
-            </div>
+            </a>
             {% endif %}
         </div>
         <nav id="barra_navegacion">
