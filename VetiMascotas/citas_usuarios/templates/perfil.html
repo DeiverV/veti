@@ -7,16 +7,26 @@
         <div class="contenedor-info-usuario">
             <div class="contenedor-identidad-usuario">
                 <div class="contenedor-avatar">
-                    <img src="{% static 'icons/mascotas.png' %}" alt="">
+                    {% if usuario.usuario.avatar %}
+                        <img src="{{usuario.avatar.url}}" alt="">
+                    {% else %}
+                        <img src="{% static 'img/logoveti.png' %}" alt="">
+                    {% endif %}
                 </div>
                 <div class="contenedor-nombre">
-                    <h3>Username</h3>
-                    <p>X años</p>
+                    <h3>{{usuario.username}}</h3>
+                    <p>{{usuario.usuario.edad}} Años</p>
                 </div>
             </div>
             <div class="contenedor-bio-btns">
                 <div class="bio-usuario">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nisi ipsum suscipit amet quod in ea vitae ab similique reiciendis veniam enim laboriosam repudiandae tempora cupiditate, at alias minima blanditiis!</p>
+                    <p>
+                        {% if usuario.usuario.biografia %}
+                            {{usuario.biografia}}
+                        {% else %}
+                            Siendo usuario de Veti y amando mis mascotas!
+                        {% endif %}
+                    </p>
                 </div>
                 <div class="botones-perfil">
                     <button>
@@ -31,22 +41,38 @@
             <div class="formateo-mascotas-perfil">
                 <h2>Mascotas de Username</h2>
                 <div class="contenedor-lista-mascotas">
-                    <div class="mascota-en-perfil">
-                        <div class="contenedor-img-mascota">
-                            <img src="{% static 'icons/mascotas.png' %}" alt="">
+                    
+                    {% for mascota in mascotas_usuario%}
+                        <div class="mascota-en-perfil">
+                            <div class="contenedor-img-mascota">
+                                {% if mascota.imagen%}
+                                    <img src="{{mascota.imagen.url}}" alt="">
+                                {% else %}
+                                    <img src="{% static 'icons/mascotas.png' %}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="contenedor-info-mascota">
+                                <h5>{{mascota.nombre}}</h5>
+                                <p>{{mascota.tipo_animal}} - {{mascota.raza}}</p>
+                                <p>{{mascota.edad}}</p>
+                            </div>
+                            <div class="botones-mascota">
+                                <button><img src="{% static 'icons/formulariopaw.png' %}" alt=""></button>
+                            </div>
                         </div>
-                        <div class="contenedor-info-mascota">
-                            <h5>Nombre de mascota</h5>
-                            <p>Tipo animal - Raza</p>
-                            <p>Edad</p>
-                        </div>
-                        <div class="botones-mascota">
-                            <button><img src="{% static 'icons/mascotas.png' %}" alt=""></button>
-                        </div>
-                    </div>
+                    {% endfor %}
+                        
                 </div>
             </div>
         </div>
+    </div>
+    <div class="div-creacion-registro crear-mascota-perfil">
+        <h3><img src="{% static 'img/patica-animal.png' %}" alt="">Agrega una mascota!</h3>
+        <form class="formulario-creacion" action="{% url 'mascotas' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ mascota_form.as_p }}
+            <input type="submit" value="Crear">
+        </form>
     </div>
 {% endblock bloqueSeccion %}
     
