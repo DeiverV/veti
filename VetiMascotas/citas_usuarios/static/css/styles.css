@@ -1030,12 +1030,30 @@ footer{
     object-fit: contain;
 }
 
-.crear-mascota-perfil{
+#crear-mascota-perfil{
     position: absolute;
-    width: 100%;
+    width: 0%;
+    height: 0%;
+    overflow: hidden;
+    transition: .5s;
 }
 
+.cerrar-menu-creacion-perfil{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    font-family: Josefin-bold-italic;
+    color: white;
+    border-bottom: white 4px solid;
+    cursor: pointer;
+}
 
+.cerrar-menu-creacion-perfil  p{
+    margin: 0;
+}
 
 /*----------------------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
 .contenedor-formularios{

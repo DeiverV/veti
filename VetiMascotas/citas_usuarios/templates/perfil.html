@@ -29,7 +29,7 @@
                     </p>
                 </div>
                 <div class="botones-perfil">
-                    <button>
+                    <button id="abrir-crear-mascota-btn">
                         <img src="{% static 'icons/paw.png' %}" alt="">
                         Agregar Una Mascota
                     </button>
@@ -66,7 +66,8 @@
             </div>
         </div>
     </div>
-    <div class="div-creacion-registro crear-mascota-perfil">
+    <div class="div-creacion-registro"  id="crear-mascota-perfil">
+        <button class="cerrar-menu-creacion-perfil" id="cerrar-cmascota"><p>Atrás</p></button>
         <h3><img src="{% static 'img/patica-animal.png' %}" alt="">Agrega una mascota!</h3>
         <form class="formulario-creacion" action="{% url 'mascotas' %}" enctype="multipart/form-data" method="post">
             {% csrf_token %}
