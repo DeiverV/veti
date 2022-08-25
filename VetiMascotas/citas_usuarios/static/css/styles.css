@@ -839,6 +839,9 @@ footer{
     justify-content: center;
     align-items: center;
     word-break: break-word;
+    padding: 5% 0;
+    box-shadow: 0 0 20px 1px #2196f38f;
+    border-radius: 30px;
 }
 
 .contenedor-identidad-usuario{
@@ -852,6 +855,7 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: auto;
 }
 
 .contenedor-avatar img{
@@ -867,6 +871,8 @@ footer{
     color: var(--color6);
     font-family: Josefin-Bold;
     font-size: 2em;
+    margin: auto;
+    border-bottom: 3px solid var(--color1);
 }
 .contenedor-nombre h3{
     margin: 0;
@@ -891,6 +897,10 @@ footer{
     font-size: 1.2em;
     overflow: auto;
     word-break: break-word;
+    margin: auto;
+    border-bottom: 3px solid var(--color1);
+    display: grid;
+    place-items: center;
 }
 
 .botones-perfil{
@@ -932,6 +942,7 @@ footer{
     justify-content: space-around;
     font-family: Josefin-Bold;
     color: white;
+    box-shadow: -20px 11px 25px 0 #00000059;
 }
 
 .formateo-mascotas-perfil{
@@ -1019,10 +1030,30 @@ footer{
     object-fit: contain;
 }
 
+#crear-mascota-perfil{
+    position: absolute;
+    width: 0%;
+    height: 0%;
+    overflow: hidden;
+    transition: .5s;
+}
 
+.cerrar-menu-creacion-perfil{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    font-family: Josefin-bold-italic;
+    color: white;
+    border-bottom: white 4px solid;
+    cursor: pointer;
+}
 
-
-
+.cerrar-menu-creacion-perfil  p{
+    margin: 0;
+}
 
 /*----------------------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
 .contenedor-formularios{

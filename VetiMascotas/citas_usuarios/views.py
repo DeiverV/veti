@@ -17,7 +17,10 @@ def sobre_nosotros(request):
 
 @login_required
 def perfil(request):
-    return render(request,'perfil.html')
+    user = request.user
+    mascotas_usuario = Mascota.objects.filter(amo=request.user.id)
+    mascota_form = MascotaForm()
+    return render(request,'perfil.html',{"usuario":user,"mascotas_usuario":mascotas_usuario,"mascota_form":mascota_form})
 
 
 def busqueda_cita(request):
