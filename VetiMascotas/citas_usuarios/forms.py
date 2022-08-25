@@ -10,7 +10,6 @@ class UserForm(forms.Form):
     edad = forms.IntegerField()
 
 class MascotaForm(forms.Form):
-    Amo = forms.CharField(max_length=20)
     Nombre = forms.CharField(max_length=20)   
     Edad = forms.IntegerField()
     Tipo_animal = forms.CharField(max_length=20)

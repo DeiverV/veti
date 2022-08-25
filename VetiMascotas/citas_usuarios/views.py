@@ -29,14 +29,17 @@ def busqueda_cita(request):
         return HttpResponseRedirect('./')
 #----------------------------------------------------------------------------VISTAS DE MODELO MASCOTAS
 
-
+@login_required
 def mascotas(request):
 
     if request.method == 'POST':
-        form = MascotaForm(request.POST)
+        form = MascotaForm(request.POST, request.FILES)
+        print(form)
         if form.is_valid():
+            print("123")
             info = form.cleaned_data
-            mascota_agregada = Mascota(amo=info['amo'] ,nombre = info['nombre'],edad = info['edad'], tipo_animal = info['tipo_animal'], raza=info['raza'], imagen=info['imagen'])
+            usuario = Usuario.objects.get(user_id = request.user)
+            mascota_agregada = Mascota(amo= usuario ,nombre = info['Nombre'],edad = info['Edad'], tipo_animal = info['Tipo_animal'], raza=info['Raza'], imagen=info['Foto'])
             mascota_agregada.save()
             return HttpResponseRedirect('./')
 
@@ -45,6 +48,8 @@ def mascotas(request):
 
     return render(request,'mascotas.html', {'mascota_form': mascota_form, 'lista_mascotas': lista_mascotas})
 
+
+@login_required
 def eliminar_mascota(request, id):
 
     if request.method == 'POST':
@@ -59,6 +64,7 @@ def eliminar_mascota(request, id):
 
         return HttpResponseRedirect('../mascotas')
 
+@login_required
 def modificar_mascota(request, id):
 
     mascota = Mascota.objects.get(id=id)
@@ -68,9 +74,10 @@ def modificar_mascota(request, id):
         miForm = MascotaForm(request.POST)
 
         if miForm.is_valid():
+            usuario = Usuario.objects.get(user_id = request.user)
             data = miForm.cleaned_data
             
-            mascota.amo = data["amo"]
+            mascota.amo = data[usuario]
             mascota.nombre = data["nombre"]
             mascota.tipo_animal = data["tipo_animal"]
             mascota.raza = data["raza"]
@@ -81,8 +88,9 @@ def modificar_mascota(request, id):
 
             return HttpResponseRedirect('../mascotas')
     else:
+        usuario = Usuario.objects.get(user_id = request.user)
         miForm = MascotaForm(initial={
-            "amo": mascota.amo,
+            "amo": usuario,
             "nombre": mascota.nombre,
             "tipo_animal": mascota.tipo_animal,
             "raza": mascota.raza,

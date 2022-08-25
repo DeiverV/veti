@@ -8,6 +8,9 @@ class Usuario(models.Model):
     avatar = models.ImageField(upload_to="avatares",blank=True,null=True)
     edad = models.IntegerField()
 
+    def __str__(self) -> str:
+        return f'{self.user_id}'
+
 class Veterinario(models.Model):
     user_id = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True,)
     nit = models.IntegerField()

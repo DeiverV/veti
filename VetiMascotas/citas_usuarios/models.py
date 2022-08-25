@@ -9,6 +9,8 @@ class Mascota(models.Model):
     tipo_animal = models.CharField(max_length=30)
     raza = models.CharField(max_length=30)
     imagen = models.ImageField(upload_to="mascotas")
+    def __str__(self) -> str:
+        return f'{self.nombre}'
 
 class Publicacion(models.Model):
     autor = models.ForeignKey(Usuario,on_delete=models.CASCADE)

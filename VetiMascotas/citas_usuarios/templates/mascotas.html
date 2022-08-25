@@ -40,7 +40,7 @@
 
     <div class="div-creacion-registro">
         <h3><img src="{% static 'img/patica-animal.png' %}" alt="">Agrega una mascota! </h3>
-        <form class="formulario-creacion" action="" method="post">
+        <form class="formulario-creacion" enctype="multipart/form-data" action="" method="post">
             {% csrf_token %}
             {{ mascota_form.as_p }}
             <input type="submit" value="Crear">
