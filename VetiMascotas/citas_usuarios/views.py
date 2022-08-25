@@ -1,3 +1,4 @@
+from inspect import formatannotation
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from veti_auth.models import Usuario
@@ -37,9 +38,7 @@ def mascotas(request):
 
     if request.method == 'POST':
         form = MascotaForm(request.POST, request.FILES)
-        print(form)
         if form.is_valid():
-            print("123")
             info = form.cleaned_data
             usuario = Usuario.objects.get(user_id = request.user)
             mascota_agregada = Mascota(amo= usuario ,nombre = info['Nombre'],edad = info['Edad'], tipo_animal = info['Tipo_animal'], raza=info['Raza'], imagen=info['Foto'])
@@ -74,18 +73,19 @@ def modificar_mascota(request, id):
 
     if request.method == "POST":
 
-        miForm = MascotaForm(request.POST)
+        miForm = MascotaForm(request.POST, request.FILES)
+
 
         if miForm.is_valid():
             usuario = Usuario.objects.get(user_id = request.user)
             data = miForm.cleaned_data
             
-            mascota.amo = data[usuario]
-            mascota.nombre = data["nombre"]
-            mascota.tipo_animal = data["tipo_animal"]
-            mascota.raza = data["raza"]
-            mascota.edad = data["edad"]
-            mascota.imagen = data["imagen"]
+            mascota.amo = usuario
+            mascota.nombre = data["Nombre"]
+            mascota.edad = data["Edad"] 
+            mascota.tipo_animal = data["Tipo_animal"]
+            mascota.raza = data["Raza"]         
+            mascota.foto = data["Foto"]
             
             mascota.save()
 
@@ -93,12 +93,12 @@ def modificar_mascota(request, id):
     else:
         usuario = Usuario.objects.get(user_id = request.user)
         miForm = MascotaForm(initial={
-            "amo": usuario,
-            "nombre": mascota.nombre,
-            "tipo_animal": mascota.tipo_animal,
-            "raza": mascota.raza,
-            "edad": mascota.edad,
-            "imagen": mascota.imagen,
+            "Amo": usuario,
+            "Nombre": mascota.nombre,
+            "Tipo_animal": mascota.tipo_animal,
+            "Raza": mascota.raza,
+            "Edad": mascota.edad,
+            "Foto": mascota.imagen,
         })
         return render(request, "modificar_mascotas.html",{"miForm": miForm, "id": mascota.id})
 
