@@ -283,6 +283,7 @@ footer{
     justify-content: center;
     align-items: center;
     font-family: Josefin-medium;
+    padding-bottom: 5vh;
 }
 .formulario-creacion p{
     display: flex;
@@ -988,11 +989,14 @@ footer{
 
 .contenedor-img-mascota img{
     width: 8vh;
-    object-fit: contain;
+    object-fit: cover;
+    border-radius: 50%;
+    height: 8vh;
+    box-shadow: 0 0 20px;
 }
 
 .contenedor-info-mascota{
-    width: 60%;
+    width: 50%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -1023,6 +1027,7 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .botones-mascota img{
@@ -1053,6 +1058,24 @@ footer{
 
 .cerrar-menu-creacion-perfil  p{
     margin: 0;
+}
+
+/*-------------------------------------------------------------------------------------EDITAR MASCOTAS*/
+
+#editar-mascota-perfil{
+    width: 100%;
+}
+
+#ir-de-editar-a-perfil{
+    position: relative;
+    top: 30px;
+    left: -40%;
+    cursor: pointer;
+}
+
+#ir-de-editar-a-perfil a{
+    color: white;
+    text-decoration: none;
 }
 
 /*----------------------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/

@@ -57,7 +57,10 @@
                                 <p>{{mascota.edad}}</p>
                             </div>
                             <div class="botones-mascota">
-                                <button><img src="{% static 'icons/formulariopaw.png' %}" alt=""></button>
+                                <form action="{% url 'elimina_mascota' mascota.id %}" method="POST">{% csrf_token %}
+                                    <button type="submit"><img src="{% static 'icons/gatomuerto.png' %}" alt="eliminar"></button>
+                                </form>
+                                <button id="abrir-editar-mascota"><a href="{% url 'modifica_mascota' mascota.id %}"><img src="{% static 'icons/formulariopaw.png' %}" alt=""></a></button>
                             </div>
                         </div>
                     {% endfor %}

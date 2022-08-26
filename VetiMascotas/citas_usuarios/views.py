@@ -6,6 +6,7 @@ from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
 from citas_usuarios.models import Mascota,Cita
 from django.contrib.auth.decorators import login_required
 import os
+
 def inicio(request):
     if request.user:
         username = request.user.username.capitalize()
@@ -35,46 +36,36 @@ def busqueda_cita(request):
 
 @login_required
 def mascotas(request):
-
     if request.method == 'POST':
         form = MascotaForm(request.POST, request.FILES)
         if form.is_valid():
             info = form.cleaned_data
             usuario = Usuario.objects.get(user_id = request.user)
-            mascota_agregada = Mascota(amo= usuario ,nombre = info['Nombre'],edad = info['Edad'], tipo_animal = info['Tipo_animal'], raza=info['Raza'], imagen=info['Foto'])
+            mascota_agregada = Mascota(
+                amo= usuario ,
+                nombre = info['Nombre'],
+                edad = info['Edad'], 
+                tipo_animal = info['Tipo_animal'], 
+                raza=info['Raza'], 
+                imagen=info['Foto']
+                )
+                
             mascota_agregada.save()
-            return HttpResponseRedirect('./')
-
-    mascota_form = MascotaForm()
-    lista_mascotas = Mascota.objects.all()
-
-    return render(request,'mascotas.html', {'mascota_form': mascota_form, 'lista_mascotas': lista_mascotas})
-
+            return HttpResponseRedirect('../perfil')
 
 @login_required
 def eliminar_mascota(request, id):
-
     if request.method == 'POST':
-
         mascota = Mascota.objects.get(id=id)
-
         mascota.delete()
-
         mascotas = Mascota.objects.all()
-
-        contexto = {"mascotas": mascotas}
-
-        return HttpResponseRedirect('../mascotas')
+        return HttpResponseRedirect('../perfil')
 
 @login_required
 def modificar_mascota(request, id):
-
     mascota = Mascota.objects.get(id=id)
-
     if request.method == "POST":
-
         miForm = MascotaForm(request.POST, request.FILES)
-        
         if miForm.is_valid():
             usuario = Usuario.objects.get(user_id = request.user)
             data = miForm.cleaned_data
@@ -93,7 +84,7 @@ def modificar_mascota(request, id):
                 mascota.imagen = mascota.imagen
             mascota.save()
 
-            return HttpResponseRedirect('../mascotas')
+            return HttpResponseRedirect('../perfil')
     else:
         usuario = Usuario.objects.get(user_id = request.user)
         miForm = MascotaForm(initial={
@@ -104,7 +95,7 @@ def modificar_mascota(request, id):
             "Edad": mascota.edad,
             "Foto": mascota.imagen,
         })
-        return render(request, "modificar_mascotas.html",{"miForm": miForm, "id": mascota.id})
+        return render(request, "modificar_mascotas.html",{"miForm": miForm, "id": mascota.id,"nombre_mascota":mascota.nombre})
 
 #----------------------------------------------------------------------------VISTAS DE MODELO CITAS
 
