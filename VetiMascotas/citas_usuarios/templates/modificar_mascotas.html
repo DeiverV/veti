@@ -3,8 +3,9 @@
 {% load static %}
 
 {% block bloqueSeccion %}
-    <div class="div-creacion-registro">
-        <h3>Modificar Mascota</h3>
+    <div class="div-creacion-registro"  id="editar-mascota-perfil">
+        <button class="cerrar-menu-creacion-perfil" id="ir-de-editar-a-perfil"><a href="{% url 'perfil' %}"><p>Atrás</p></a></button>
+        <h3><img src="{% static 'img/patica-animal.png' %}" alt="">Actualiza datos de {{nombre_mascota}}!</h3>
         <form  class="formulario-creacion" enctype="multipart/form-data" action="{% url 'modifica_mascota' id %}" method="POST"> {% csrf_token %}
             {{miForm.as_p}}
             <input type="submit" value="Guardar">

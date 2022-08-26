@@ -16,6 +16,12 @@ class MascotaForm(forms.Form):
     Raza = forms.CharField(max_length=20) 
     Foto = forms.ImageField(required=False) 
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['Foto'].widget.clear_checkbox = 'Borrar'
+        self.fields['Foto'].widget.initial_text = "Actual"
+        self.fields['Foto'].widget.input_text = "Cambiar Imagen"
+
 
 class CitaForm(forms.Form):
     veterinario = forms.CharField(max_length=30)
