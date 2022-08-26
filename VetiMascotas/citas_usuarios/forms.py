@@ -14,7 +14,7 @@ class MascotaForm(forms.Form):
     Edad = forms.IntegerField()
     Tipo_animal = forms.CharField(max_length=20)
     Raza = forms.CharField(max_length=20) 
-    Foto = forms.ImageField() 
+    Foto = forms.ImageField(required=False) 
 
 
 class CitaForm(forms.Form):

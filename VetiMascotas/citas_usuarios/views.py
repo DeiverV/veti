@@ -5,7 +5,7 @@ from veti_auth.models import Usuario
 from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
 from citas_usuarios.models import Mascota,Cita
 from django.contrib.auth.decorators import login_required
-
+import os
 def inicio(request):
     if request.user:
         username = request.user.username.capitalize()
@@ -74,8 +74,7 @@ def modificar_mascota(request, id):
     if request.method == "POST":
 
         miForm = MascotaForm(request.POST, request.FILES)
-
-
+        
         if miForm.is_valid():
             usuario = Usuario.objects.get(user_id = request.user)
             data = miForm.cleaned_data
@@ -84,9 +83,14 @@ def modificar_mascota(request, id):
             mascota.nombre = data["Nombre"]
             mascota.edad = data["Edad"] 
             mascota.tipo_animal = data["Tipo_animal"]
-            mascota.raza = data["Raza"]         
-            mascota.foto = data["Foto"]
-            
+            mascota.raza = data["Raza"]
+            if data["Foto"]:
+                image_path = mascota.imagen.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+                mascota.imagen = data["Foto"]
+            else:
+                mascota.imagen = mascota.imagen
             mascota.save()
 
             return HttpResponseRedirect('../mascotas')
@@ -104,11 +108,14 @@ def modificar_mascota(request, id):
 
 #----------------------------------------------------------------------------VISTAS DE MODELO CITAS
 
-
+@login_required
 def citas(request):
 
     if request.method == 'POST':
         form = CitaForm(request.POST)
+        #VALIDAR SI EL USUARIO ES VETERINARIO request.user.usuario.veterinario
+        #veterinario=request.user.usuario.veterinario
+        #verificar que el local.veterinario == veterinario
         if form.is_valid():
             info = form.cleaned_data
             cita_agregada = Cita(veterinario=info['veterinario'] ,local = info['local'] ,fecha=info['fecha'] ,hora=info['hora'] ,especialidad=info['especialidad'])
@@ -119,6 +126,7 @@ def citas(request):
     citas = Cita.objects.all
     return render(request,'citas.html', {'cita_form':cita_form,'lista_citas':citas})
 
+@login_required
 def eliminar_cita(request, id):
 
     if request.method == 'POST':
@@ -132,7 +140,8 @@ def eliminar_cita(request, id):
         contexto = {"citas": citas}
 
         return HttpResponseRedirect('../citas')
-
+        
+@login_required
 def modificar_cita(request, id):
 
     cita = Cita.objects.get(id=id)
@@ -222,5 +231,3 @@ def eliminar_usuario(request, id):
         contexto = {"usuarios": usuarios}
 
         return HttpResponseRedirect ("../usuarios")
-
-

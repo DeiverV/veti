@@ -8,7 +8,7 @@ class Mascota(models.Model):
     edad = models.IntegerField()
     tipo_animal = models.CharField(max_length=30)
     raza = models.CharField(max_length=30)
-    imagen = models.ImageField(upload_to="mascotas")
+    imagen = models.ImageField(upload_to="mascotas" )
     def __str__(self) -> str:
         return f'{self.nombre}'
 
