@@ -10,7 +10,6 @@ from citas_usuarios.widget import DatePickerInput,TimePickerInput
 
 from citas_usuarios.models import Cita, Mascota
 
-
 class UserForm(forms.Form):
     cedula = forms.IntegerField()   
     nombre = forms.CharField(max_length=20)   
@@ -37,7 +36,6 @@ class CitaForm(forms.Form):
     hora = forms.TimeField(widget=TimePickerInput) 
     especialidad = forms.CharField(max_length=30)
 
-
 class PublicacionForm(forms.Form):
     texto = forms.CharField(max_length=300)
     imagen = forms.ImageField(required=False)
@@ -46,4 +44,3 @@ class CitaForm(forms.ModelForm):
     class Meta:
         model = Cita
         fields = ('fecha', 'especialidad', 'local')
-
