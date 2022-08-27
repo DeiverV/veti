@@ -1,0 +1,81 @@
+{% extends 'base_sinfooter.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+    <div id="contenedor-muro">
+        <div id="contenedor-publicaciones">
+            <div class="publicacion">
+                <a href="" class="contenedor-usuario-publicacion">
+                    <div class="imagen-usuario-publicacion"> 
+                        <img src="{% static 'icons/mascotas.png' %}" alt="">
+                    </div>
+                    <div class="contenedor-info-usuario-publicacion crear-publicacion-user">
+                        <h5>{{user}}</h5>
+                        <p>¿Que quieres compartir hoy?</p>
+                    </div>
+                </a>
+                <div class="contenedor-texto-publicacion">
+                    <form action="" enctype="multipart/form-data" method="post">
+                        {% csrf_token %}
+                        {{publicacion_formulario.as_p}}
+                        <input type="submit" value="Publicar">
+                    </form>
+                </div>
+            </div>
+            {% for publicacion in publicaciones%}
+                <div class="publicacion">
+                    <a href="" class="contenedor-usuario-publicacion">
+                        <div class="imagen-usuario-publicacion">
+                            {% if publicacion.autor.avatar %}
+                                <img src="{{publicacion.autor.avatar.url}}" alt="" srcset="">
+                            {% else %}
+                                <img src="{% static 'icons/defaultavatar.png' %}" alt="" srcset="">
+                            {% endif %}
+                        </div>
+                        <div class="contenedor-info-usuario-publicacion">
+                            <h5>{{publicacion.autor}}</h5>
+                            {% if publicacion.autor.veterinario %}
+                                <p>Veterinario Veti!</p>
+                            {% else %}    
+                                <p>Usuario Veti</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    <div class="contenedor-texto-publicacion">
+                        <p>{{publicacion.texto}}</p>
+                    </div>
+                    {% if publicacion.imagen %}
+                        <div class="contenedor-imagen-publicacion">
+                            <img src="{{publicacion.imagen.url}}" alt="">
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <aside id="contenedor-usuarios-muro">
+                <h3>!Usuarios de Veti</h3>
+                
+                {% for usuario in usuarios %}
+                    <a href="" class="usuarios-muro {% if usuario.veterinario %}veterinario-muro{% endif %}">
+                        <div class="imagen-usuario-muro">
+                            {% if usuario.avatar %}
+                                <img src="{{usuario.avatar.url}}" alt="" srcset="">
+                            {% else %}
+                                <img src="{% static 'icons/defaultavatar.png' %}" alt="" srcset="">
+                            {% endif %}
+                        </div>
+                        <div class="contenedor-info-usuario-publicacion">
+                            <h5>{{usuario}}</h5>
+                            {% if usuario.veterinario %}
+                                <p>Veterinario Veti!</p>
+                            {% else %}    
+                                <p>Usuario Veti</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+                    
+            </aside>
+        </div>
+    </div>
+{% endblock bloqueSeccion %}

@@ -1,16 +1,16 @@
-from inspect import formatannotation
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from veti_auth.models import Usuario
-from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
-from citas_usuarios.models import Mascota,Cita
+from django.contrib.auth.models import User
+from citas_usuarios.forms import UserForm,MascotaForm,CitaForm,PublicacionForm
+from citas_usuarios.models import Mascota,Cita,Publicacion
 from django.contrib.auth.decorators import login_required
 import os
 
 def inicio(request):
     if request.user:
-        username = request.user.username.capitalize()
-        return render(request,"inicio.html",{"user":username})
+        usuario = request.user.usuario
+        return render(request,"inicio.html",{"user":usuario})
     return render(request,'inicio.html')
 
 @login_required
@@ -23,6 +23,29 @@ def perfil(request):
     mascotas_usuario = Mascota.objects.filter(amo=request.user.id)
     mascota_form = MascotaForm()
     return render(request,'perfil.html',{"usuario":user,"mascotas_usuario":mascotas_usuario,"mascota_form":mascota_form})
+
+@login_required
+def muro(request):
+    publicacion_formulario=PublicacionForm()
+
+    if request.method=="POST":
+
+        publicacion_formulario=PublicacionForm(request.POST,request.FILES)
+        if publicacion_formulario.is_valid():
+            data = publicacion_formulario.cleaned_data
+            publicacion_nueva = Publicacion(
+                autor=request.user.usuario,
+                texto=data["texto"],
+                imagen=data["imagen"]
+                )
+
+            publicacion_nueva.save()
+            return HttpResponseRedirect('../perfil')
+
+    else:
+        usuarios = Usuario.objects.all()
+        publicaciones = Publicacion.objects.all()
+        return render(request,"muro.html",{"usuarios":usuarios,"publicaciones":publicaciones,"publicacion_formulario":publicacion_formulario})
 
 
 def busqueda_cita(request):

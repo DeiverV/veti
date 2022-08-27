@@ -7,10 +7,10 @@
         <div class="contenedor-info-usuario">
             <div class="contenedor-identidad-usuario">
                 <div class="contenedor-avatar">
-                    {% if usuario.usuario.avatar %}
-                        <img src="{{usuario.avatar.url}}" alt="">
+                    {% if user.avatar %}
+                    <img src="{{user.avatar.url}}" alt="" srcset="">
                     {% else %}
-                        <img src="{% static 'img/logoveti.png' %}" alt="">
+                        <img src="{% static 'icons/defaultavatar.png' %}" alt="" srcset="">
                     {% endif %}
                 </div>
                 <div class="contenedor-nombre">

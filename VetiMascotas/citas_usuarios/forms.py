@@ -1,8 +1,9 @@
 from dataclasses import field
+from urllib import request
 from django import forms
 from citas_usuarios.widget import DatePickerInput,TimePickerInput
 
-from citas_usuarios.models import Mascota
+from citas_usuarios.models import Mascota,Publicacion
 
 class UserForm(forms.Form):
     cedula = forms.IntegerField()   
@@ -29,3 +30,7 @@ class CitaForm(forms.Form):
     fecha = forms.DateTimeField(widget=DatePickerInput)
     hora = forms.TimeField(widget=TimePickerInput) 
     especialidad = forms.CharField(max_length=30)
+
+class PublicacionForm(forms.Form):
+    texto = forms.CharField(max_length=300)
+    imagen = forms.ImageField(required=False)

@@ -80,6 +80,8 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    z-index: 2;
 }
 
 #header_container_tittle{
@@ -730,6 +732,7 @@ footer{
     flex-direction: column;
     justify-content: center;
     overflow-x: hidden;
+    margin-top: 9vh;
 }
 
 #contenedor-sobre-nosotros h1{
@@ -830,6 +833,7 @@ footer{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-top: 9vh;
 }
 
 .contenedor-info-usuario{
@@ -840,7 +844,7 @@ footer{
     justify-content: center;
     align-items: center;
     word-break: break-word;
-    padding: 5% 0;
+    padding: 2% 0;
     box-shadow: 0 0 20px 1px #2196f38f;
     border-radius: 30px;
 }
@@ -863,6 +867,7 @@ footer{
     border-radius: 50%;
     width: 25vh;
     object-fit: contain;
+    box-shadow: 0 0 20px #0000001a;
 }
 
 .contenedor-nombre{
@@ -1078,6 +1083,157 @@ footer{
     text-decoration: none;
 }
 
+/*--------------------------------------------------------------------------------------MURO*/
+#contenedor-muro{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#contenedor-publicaciones{
+    width: 80%;
+    padding-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.publicacion{
+    width: 60%;
+    border-radius: 30px;
+    box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.205);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 50px;
+    background-color: white;
+}
+
+.contenedor-usuario-publicacion{
+    width: 100%;
+    height: 15%;
+    background-color: var(--color6);
+    color: white;
+    text-decoration: none;
+    font-family: Josefin-light-Italic;
+    display: flex;
+    padding: 10px 0;
+}
+
+.imagen-usuario-publicacion{
+    padding: 0 10px 0px 7%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.imagen-usuario-publicacion img{
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.contenedor-info-usuario-publicacion{
+    height: 100%;
+}
+
+.contenedor-info-usuario-publicacion h5{
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.contenedor-info-usuario-publicacion p{
+    font-size: 1em;
+    margin: 0;
+}
+
+.crear-publicacion-user{
+    color: var(--color7);
+}
+
+.contenedor-texto-publicacion{
+    width: 85%;
+    padding: 10px 0;
+    text-align: start;
+    font-size: 1.2em;
+    color: var(--color6);
+    font-family: Josefin-medium;
+}
+
+.contenedor-imagen-publicacion{
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: #cbcbcb61;
+    border-radius: 30px;
+    margin-bottom: 40px;
+}
+
+.contenedor-imagen-publicacion img{
+    max-width: 350px;
+    max-height: 490px;
+}
+
+#contenedor-usuarios-muro{
+    width: 20%;
+    height: 100vh;
+    background-color: var(--color6);
+    font-family: Josefin-light;
+    color: white;
+    position: fixed;
+    right: 0;
+    top: 9vh;
+    overflow: scroll;
+    direction: rtl;
+}
+
+#contenedor-usuarios-muro::-webkit-scrollbar{
+    background-color: black;
+}
+
+#contenedor-usuarios-muro::-webkit-scrollbar-thumb{
+    background-color: var(--color7);
+
+}
+
+#contenedor-usuarios-muro h3{
+    font-family: Josefin-bold;
+    text-align: center;
+    margin: 2em;
+    font-size: 1.5em;
+    border-bottom:5px white solid;
+}
+
+.usuarios-muro{
+    width: 80%;
+    display: flex;
+    text-decoration: none;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.veterinario-muro{
+    color: var(--color2);
+}
+.imagen-usuario-muro{
+    padding: 0 10px 0px 7%;
+    display: grid;
+    place-items: center;
+}
+
+.imagen-usuario-muro img{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
 /*----------------------------------------------------------------------------TABLA PARA MOSTRAR DATOS DE VISTAS*/
 .contenedor-formularios{
     display: flex;

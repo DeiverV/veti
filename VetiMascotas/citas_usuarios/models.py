@@ -18,6 +18,9 @@ class Publicacion(models.Model):
     texto = models.CharField(max_length=300,blank=True)
     imagen = models.ImageField(upload_to="publicaciones",blank=True)
 
+    class Meta:
+        ordering = ('-fecha',)
+
 class Local(models.Model):
     veterinario = models.ForeignKey(Veterinario, on_delete=models.CASCADE)
     pais = models.CharField(max_length=60)
