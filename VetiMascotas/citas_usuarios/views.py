@@ -124,17 +124,18 @@ def modificar_mascota(request, id):
 
 @login_required
 def citas(request):
-
-    if request.method == 'POST':
-        form = CitaForm(request.POST)
         #VALIDAR SI EL USUARIO ES VETERINARIO request.user.usuario.veterinario
         #veterinario=request.user.usuario.veterinario
         #verificar que el local.veterinario == veterinario
-        if form.is_valid():
-            info = form.cleaned_data
-            cita_agregada = Cita(veterinario=info['veterinario'] ,local = info['local'] ,fecha=info['fecha'] ,hora=info['hora'] ,especialidad=info['especialidad'])
-            cita_agregada.save()
-            return HttpResponse
+    if request.method == 'POST':
+        form = CitaForm(request.POST)
+        veterinario = request.user.usuario.veterinario
+        if form.is_valid() and veterinario:
+            info = form.cleaned_data    
+            if info['local'].veterinario == veterinario:
+                cita_agregada = Cita(veterinario = veterinario ,local=info['local'] ,fecha=info['fecha'] ,especialidad=info['especialidad'])
+                cita_agregada.save()
+                return HttpResponse
 
     cita_form = CitaForm()
     citas = Cita.objects.all
@@ -171,7 +172,6 @@ def modificar_cita(request, id):
             cita.veterinario = data["veterinario"]
             cita.local = data["local"]
             cita.fecha = data["fecha"]
-            cita.hora = data["hora"]
             cita.especialidad = data["especialidad"]
             
             cita.save()
