@@ -14,3 +14,6 @@ class Usuario(models.Model):
 class Veterinario(models.Model):
     user_id = models.OneToOneField(Usuario, on_delete=models.CASCADE,primary_key=True,)
     nit = models.IntegerField()
+
+    def __str__(self) -> str:
+        return f'{self.user_id}'
