@@ -19,7 +19,7 @@
                     <form action="" enctype="multipart/form-data" method="post">
                         {% csrf_token %}
                         {{publicacion_formulario.as_p}}
-                        <input type="submit" value="Publicar">
+                        <input type="submit" id="publicar-btn" value="Publicar">
                     </form>
                 </div>
             </div>

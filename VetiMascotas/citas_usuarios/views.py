@@ -13,9 +13,11 @@ def inicio(request):
         return render(request,"inicio.html",{"user":usuario})
     return render(request,'inicio.html')
 
+
 @login_required
 def sobre_nosotros(request):
     return render(request,'sobre_nosotros.html')
+
 
 @login_required
 def perfil(request):
@@ -23,6 +25,8 @@ def perfil(request):
     mascotas_usuario = Mascota.objects.filter(amo=request.user.id)
     mascota_form = MascotaForm()
     return render(request,'perfil.html',{"usuario":user,"mascotas_usuario":mascotas_usuario,"mascota_form":mascota_form})
+
+
 
 @login_required
 def muro(request):
@@ -40,12 +44,27 @@ def muro(request):
                 )
 
             publicacion_nueva.save()
-            return HttpResponseRedirect('../perfil')
-
+            return HttpResponseRedirect('./')
     else:
         usuarios = Usuario.objects.all()
         publicaciones = Publicacion.objects.all()
         return render(request,"muro.html",{"usuarios":usuarios,"publicaciones":publicaciones,"publicacion_formulario":publicacion_formulario})
+
+
+@login_required
+def publicaciones_propias(request):
+    publicaciones = Publicacion.objects.filter(autor=request.user.usuario)
+    return render(request,"mis_publicaciones.html",{"publicaciones":publicaciones})
+
+
+
+@login_required
+def eliminar_publicacion(request,id):
+    if request.method == 'POST':
+        publicacion = Publicacion.objects.get(id=id)
+        publicacion.delete()
+        return HttpResponseRedirect('../mis_publicaciones')
+
 
 
 def busqueda_cita(request):
@@ -81,7 +100,6 @@ def eliminar_mascota(request, id):
     if request.method == 'POST':
         mascota = Mascota.objects.get(id=id)
         mascota.delete()
-        mascotas = Mascota.objects.all()
         return HttpResponseRedirect('../perfil')
 
 @login_required

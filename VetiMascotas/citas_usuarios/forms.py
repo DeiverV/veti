@@ -1,4 +1,5 @@
 from dataclasses import field
+from logging import PlaceHolder
 from urllib import request
 from django import forms
 from citas_usuarios.widget import DatePickerInput,TimePickerInput
@@ -37,7 +38,7 @@ class CitaForm(forms.Form):
     especialidad = forms.CharField(max_length=30)
 
 class PublicacionForm(forms.Form):
-    texto = forms.CharField(max_length=300)
+    texto = forms.CharField(max_length=300,label=False, widget=forms.Textarea(attrs={'placeholder':"Que vas a compartir hoy? :D"}))
     imagen = forms.ImageField(required=False)
 
 class CitaForm(forms.ModelForm):
