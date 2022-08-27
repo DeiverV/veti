@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block bloqueSeccion %}
+
+    <div class="div-creacion-registro">
+        <h3>Modificar Local!</h3>
+        <form  class="formulario-creacion" action="{% url 'modifica_local' id %}" method="POST"> {% csrf_token %}
+            {{miForm.as_p}}
+            <input type="submit" value="Guardar">
+        </form>
+    </div>
+
+{% endblock bloqueSeccion %}

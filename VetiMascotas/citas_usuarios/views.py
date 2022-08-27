@@ -1,6 +1,9 @@
 from inspect import formatannotation
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from citas_usuarios.forms import Localform
+from citas_usuarios.models import Local
+from citas_usuarios.forms import UserEditFrom
 from veti_auth.models import Usuario
 from citas_usuarios.forms import UserForm,MascotaForm,CitaForm
 from citas_usuarios.models import Mascota,Cita
@@ -182,32 +185,34 @@ def usuarios(request):
 
     return render(request,'usuario.html', {'usuarios_form':usuarios_form,'lista_usuario': usuarios})
 
-def modificar_usuario(request, id):
+@login_required
+def editarperfil(request):
+    
+    usuario = request.user
 
-    usuario = Usuario.objects.get(cedula=id)
 
-    if request.method == "POST":
-
-        miForm = UserForm(request.POST)
+    if request.method == 'POST':
+        
+        miForm = UserEditFrom( request.POST, instance=request.user)
 
         if miForm.is_valid():
-            data = miForm.cleaned_data
 
-            usuario.nombre = data["nombre"]
-            usuario.edad = data["edad"]
-            usuario.rol = data["rol"]
+
+            data = miForm.cleaned_data
+            
+            usuario.First_name = data['first_name']
+            usuario.Last_name= data['last_name']
+            usuario.email = data['email']
+            usuario.biografia = data['biografia']
+            usuario.avatar = data['avatar']
 
             usuario.save()
-
-            return HttpResponseRedirect('../usuarios')
+            return render(request, "usuario.html", {"mensaje": "Datos actualizados con éxito..."})
     else:
-        miForm = UserForm(initial={
-            "nombre": usuario.nombre,
-            "edad": usuario.edad,
-            "rol": usuario.rol,
-            "cedula": usuario.cedula,
-        })
-        return render(request, "modificar_usuario.html",{"miForm": miForm, "id": usuario.cedula})
+
+        miForm= UserEditFrom(instance=request.user)
+
+    return render(request, "EditarPerfil.html",{"miForm":miForm, "usuario":usuario })
 
 def eliminar_usuario(request, id):
 
@@ -222,3 +227,71 @@ def eliminar_usuario(request, id):
         contexto = {"usuarios": usuarios}
 
         return HttpResponseRedirect ("../usuarios")
+
+
+@login_required
+def Locales(request):
+    if request.user.usuario.veterinario:
+        if request.method == 'POST':
+            form = Localform(request.POST, request.FILES)
+            veterinario = request.user.usuario.veterinario
+            if form.is_valid() and veterinario:
+                info = form.cleaned_data
+                local_agregado = Local(veterinario=veterinario ,pais = info['pais'], ciudad=info['ciudad'], zona=info['zona'], direccion=info['direccion'], imagen=info['imagen'])
+                local_agregado.save()
+                return HttpResponseRedirect('../')
+
+        local_form = Localform()
+        local = Local.objects.all()
+
+        return render(request,'locales.html', {'local_form':local_form,'lista_locales': local})
+    else:
+        return HttpResponseRedirect("../")
+
+
+def eliminar_local(request, id):
+
+    if request.method == 'POST':
+
+        local = Local.objects.get(id=id)
+
+        local.delete()
+
+        local = Local.objects.all()
+
+        contexto = {"local": local}
+
+        return HttpResponseRedirect('../locales')
+
+def modificar_local(request, id):
+
+    local = Local.objects.get(id=id)
+
+    if request.method == "POST":
+
+        miForm = Localform(request.POST)
+
+        if miForm.is_valid():
+
+            data = miForm.cleaned_data
+            
+            local.pais = data["pais"]
+            local.ciudad = data["ciudad"]
+            local.zona = data["zona"]
+            local.direccion = data["direccion"]
+            local.imagen = data["imagen"]
+            
+            local.save()
+
+            return HttpResponseRedirect('../locales')
+    else:
+        miForm = Localform(initial={
+            "veterinario": local.veterinario,
+            "pais": local.pais,
+            "ciudad": local.ciudad,
+            "zona": local.zona,   
+            "direccion": local.direccion,
+            "imagen":local.imagen
+            
+        })
+        return render(request, "modifica_locales.html",{"miForm": miForm, "id": local.id})

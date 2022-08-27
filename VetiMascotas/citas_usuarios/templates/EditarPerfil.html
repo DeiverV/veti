@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block bloqueSeccion %}
+    
+    <h3>Editar Perfil</h3>
+     <form method="POST"> {% csrf_token %}
+
+            {{miForm.as_p}}
+            
+            <input type="submit" value="Guardar">
+     </form>
+
+{% endblock bloqueSeccion %}
