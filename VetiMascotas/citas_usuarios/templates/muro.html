@@ -25,7 +25,7 @@
             </div>
             {% for publicacion in publicaciones%}
                 <div class="publicacion">
-                    <a href="" class="contenedor-usuario-publicacion">
+                    <a href="{% url 'perfil-usuario' publicacion.autor.user_id.id %}" class="contenedor-usuario-publicacion">
                         <div class="imagen-usuario-publicacion">
                             {% if publicacion.autor.avatar %}
                                 <img src="{{publicacion.autor.avatar.url}}" alt="" srcset="">
@@ -51,12 +51,16 @@
                         </div>
                     {% endif %}
                 </div>
+            {% empty %}
+            <div class="contenedor-no-hay-que-mostrar">
+                <p>No hay publicaciones aún, ¡Postea algo!</p>
+            </div>
             {% endfor %}
             <aside id="contenedor-usuarios-muro">
                 <h3>!Usuarios de Veti</h3>
                 
                 {% for usuario in usuarios %}
-                    <a href="" class="usuarios-muro {% if usuario.veterinario %}veterinario-muro{% endif %}">
+                    <a href="{% url 'perfil-usuario' usuario.user_id.id %}" class="usuarios-muro {% if usuario.veterinario %}veterinario-muro{% endif %}">
                         <div class="imagen-usuario-muro">
                             {% if usuario.avatar %}
                                 <img src="{{usuario.avatar.url}}" alt="" srcset="">

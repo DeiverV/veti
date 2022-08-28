@@ -1,4 +1,4 @@
-{% extends 'base_sinfooter.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -36,6 +36,13 @@
                         </div>
                     {% endif %}
                 </div>
+                
+            {% empty %}
+
+                <div class="contenedor-no-hay-que-mostrar">
+                    <p>¡No has publicado nada aun!</p>
+                </div>
+
             {% endfor %}
         </div>
     </div>

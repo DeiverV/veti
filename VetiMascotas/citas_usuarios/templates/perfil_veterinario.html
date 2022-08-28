@@ -4,7 +4,7 @@
 
 {% block bloqueSeccion %}
     <div id="contenedor-perfil">
-        <div class="contenedor-info-usuario">
+        <div class="contenedor-info-usuario contenedor-info-vet">
             <div class="contenedor-identidad-usuario">
                 <div class="contenedor-avatar">
                     {% if usuario.avatar %}
@@ -14,13 +14,13 @@
                     {% endif %}
                 </div>
                 <figure id="btn-editar-perfil"><a href="{% url 'editar_perfil' %}"><img src="{% static 'icons/editar.png' %}" alt=""></a></figure>
-                <div class="contenedor-nombre">
+                <div class="contenedor-nombre nombre-vet">
                     <h3>{{usuario}}</h3>
                     <p>{{usuario.edad}} Años</p>
                 </div>
             </div>
             <div class="contenedor-bio-btns">
-                <div class="bio-usuario">
+                <div class="bio-usuario bio-vet">
                     <p>
                         {% if usuario.biografia %}
                             {{usuario.biografia}}
@@ -30,9 +30,13 @@
                     </p>
                 </div>
                 <div class="botones-perfil">
-                    <button id="abrir-crear-mascota-btn">
-                        <img src="{% static 'icons/paw.png' %}" alt="">
-                        Agregar Una Mascota
+                    <button >
+                        <img src="{% static 'icons/certificado.png' %}" alt="">
+                        Agregar Certificado
+                    </button>
+                    <button >
+                        <img src="{% static 'icons/clinica.png' %}" alt="">
+                        Agregar Local
                     </button>
                     <a href="{% url 'mis_publicaciones' %}">
                         <img src="{% static 'icons/publicacion.png' %}" alt="">
@@ -42,38 +46,20 @@
             </div>
         </div>
 
-        <div class="contenedor-mascotas-perfil">
-            <div class="formateo-mascotas-perfil">
-                <h2>Mascotas de {{usuario}}</h2>
-                <div class="contenedor-lista-mascotas">
+        <div class="contenedor-pertenencias-vet">
+            <div>
+                <div>
+
+                </div>
+            </div>
+            <div>
+                <div>
                     
-                    {% for mascota in mascotas_usuario%}
-                        <div class="mascota-en-perfil">
-                            <div class="contenedor-img-mascota">
-                                {% if mascota.imagen%}
-                                    <img src="{{mascota.imagen.url}}" alt="">
-                                {% else %}
-                                    <img src="{% static 'icons/mascotas.png' %}" alt="">
-                                {% endif %}
-                            </div>
-                            <div class="contenedor-info-mascota">
-                                <h5>{{mascota.nombre}}</h5>
-                                <p>{{mascota.tipo_animal}} - {{mascota.raza}}</p>
-                                <p>{{mascota.edad}} Años</p>
-                            </div>
-                            <div class="botones-mascota">
-                                <form action="{% url 'elimina_mascota' mascota.id %}" method="POST">{% csrf_token %}
-                                    <button type="submit"><img src="{% static 'icons/gatomuerto.png' %}" alt="eliminar"></button>
-                                </form>
-                                <button id="abrir-editar-mascota"><a href="{% url 'modifica_mascota' mascota.id %}"><img src="{% static 'icons/formulariopaw.png' %}" alt=""></a></button>
-                            </div>
-                        </div>
-                    {% endfor %}
-                        
                 </div>
             </div>
         </div>
     </div>
+
     <div class="div-creacion-registro"  id="crear-mascota-perfil">
         <button class="cerrar-menu-creacion-perfil" id="cerrar-cmascota"><p>Atrás</p></button>
         <h3><img src="{% static 'img/patica-animal.png' %}" alt="">Agrega una mascota!</h3>

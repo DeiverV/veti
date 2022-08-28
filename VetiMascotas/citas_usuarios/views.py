@@ -14,25 +14,38 @@ from django.contrib.auth.decorators import login_required
 import os
 
 def inicio(request):
-    if request.user:
-        usuario = request.user.usuario
-        return render(request,"inicio.html",{"user":usuario})
     return render(request,'inicio.html')
+
+@login_required
+def visita_perfil(request, idusuario):
+    usuario = Usuario.objects.get(user_id=idusuario)
+
+    if hasattr(usuario, 'veterinario'):
+        return render(request,'perfil_veterinario.html',{"usuario":usuario})
+
+    mascotas_usuario = Mascota.objects.filter(amo=usuario)
+    return render(request,'perfil_usuario.html',{"usuario":usuario,"mascotas_usuario":mascotas_usuario})
 
 
 @login_required
 def sobre_nosotros(request):
     return render(request,'sobre_nosotros.html')
-
+    
 
 @login_required
 def perfil(request):
-    user = request.user
+    user = request.user.usuario
+
+    if hasattr(user, 'veterinario'):
+        return render(request,'perfil_veterinario.html',{"usuario":user})
+
     mascotas_usuario = Mascota.objects.filter(amo=request.user.id)
     mascota_form = MascotaForm()
     return render(request,'perfil.html',{"usuario":user,"mascotas_usuario":mascotas_usuario,"mascota_form":mascota_form})
 
+    
 
+#------------------------------------------------------------------------------------VISTAS DE MODELO PUBLICACIONES
 
 @login_required
 def muro(request):
@@ -148,9 +161,6 @@ def modificar_mascota(request, id):
 
 @login_required
 def citas(request):
-        #VALIDAR SI EL USUARIO ES VETERINARIO request.user.usuario.veterinario
-        #veterinario=request.user.usuario.veterinario
-        #verificar que el local.veterinario == veterinario
     if request.method == 'POST':
         form = CitaForm(request.POST)
         veterinario = request.user.usuario.veterinario
@@ -213,63 +223,51 @@ def modificar_cita(request, id):
 
 #----------------------------------------------------------------------------VISTAS DE MODELO USUARIOS
 
-
-def usuarios(request):
-
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            info = form.cleaned_data
-            usuario_agregado = Usuario(cedula=info['cedula'] ,nombre = info['nombre'], edad=info['edad'], rol=info['rol'])
-            usuario_agregado.save()
-            return HttpResponseRedirect('../')
-
-    usuarios_form = UserForm()
-    usuarios = Usuario.objects.all()
-
-    return render(request,'usuario.html', {'usuarios_form':usuarios_form,'lista_usuario': usuarios})
-
 @login_required
-def editarperfil(request):
+def editar_perfil(request):
     
     usuario = request.user
-
-
+    cliente = request.user.usuario
     if request.method == 'POST':
-        
-        miForm = UserEditFrom( request.POST, instance=request.user)
-
+        miForm = UserEditFrom( request.POST, request.FILES, instance=request.user)
         if miForm.is_valid():
 
-
             data = miForm.cleaned_data
-            
-            usuario.First_name = data['first_name']
-            usuario.Last_name= data['last_name']
-            usuario.email = data['email']
-            usuario.biografia = data['biografia']
-            usuario.avatar = data['avatar']
 
+            usuario.username= data['username']
             usuario.save()
-            return render(request, "usuario.html", {"mensaje": "Datos actualizados con éxito..."})
+
+            cliente.biografia = data['biografia']
+            if data["avatar"] and cliente.avatar:
+                image_path = cliente.avatar.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+                cliente.avatar = data["avatar"]
+            elif data["avatar"]:
+                cliente.avatar = data["avatar"]
+            else:
+                cliente.avatar = cliente.avatar
+            cliente.save()
+
+            return HttpResponseRedirect("../perfil")
+        
+        print(miForm.errors.get_json_data)
+        return HttpResponseRedirect("./")
     else:
-
-        miForm= UserEditFrom(instance=request.user)
-
-    return render(request, "EditarPerfil.html",{"miForm":miForm, "usuario":usuario })
+        miForm= UserEditFrom(initial={
+            "username": request.user,
+            "biografia" : usuario.usuario.biografia,
+            "avatar" : usuario.usuario.avatar
+        })
+        return render(request, "editar_perfil.html",{"miForm":miForm, "usuario":usuario })
 
 def eliminar_usuario(request, id):
 
      if request.method == 'POST':
-
         usuario = Usuario.objects.get(cedula=id)
-
         usuario.delete()
-
         usuarios = Usuario.objects.all()
-
         contexto = {"usuarios": usuarios}
-
         return HttpResponseRedirect ("../usuarios")
 
 
@@ -292,24 +290,22 @@ def Locales(request):
     else:
         return HttpResponseRedirect("../")
 
-
+@login_required
 def eliminar_local(request, id):
 
     if request.method == 'POST':
-
         local = Local.objects.get(id=id)
-
         local.delete()
-
         local = Local.objects.all()
-
         contexto = {"local": local}
-
         return HttpResponseRedirect('../locales')
 
+@login_required
 def modificar_local(request, id):
+
     local = Local.objects.get(id=id)
     if request.method == "POST":
+
         miForm = Localform(request.POST, request.FILES)
         if miForm.is_valid():
             data = miForm.cleaned_data
@@ -341,23 +337,16 @@ def modificar_local(request, id):
         return render(request, "modificar_locales.html",{"miForm": miForm, "id": local.id})
 
 
-
-
 @login_required
 def certificados (request):
-    
     certificados = request.user
 
-
     if request.method == 'POST':
-        
+
         miForm = Certificadoform( request.POST, instance=request.user)
-
         if miForm.is_valid():
-
-
             data = miForm.cleaned_data
-            
+
             certificados.veterinario = data['veterinario']
             certificados.imagen= data['imagen']
             certificados.fecha = data['fecha']
@@ -365,21 +354,17 @@ def certificados (request):
             certificados.save()
             return render(request, "certificados.html")
     else:
-
         miForm= Certificadoform(instance=request.user)
+        return render(request, "certificados.html",{"miForm":miForm, "certificados":certificados })
 
-    return render(request, "certificados.html",{"miForm":miForm, "certificados":certificados })
-
+@login_required
 def eliminar_certificados(request, id):
 
      if request.method == 'POST':
 
         certificado = Certificado.objects.get(id=id)
-
         certificado.delete()
-
         certificados = Certificado.objects.all()
-
         contexto = {"certificados": certificados}
 
         return HttpResponseRedirect ("../certificados")

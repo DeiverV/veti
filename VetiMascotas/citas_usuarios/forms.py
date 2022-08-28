@@ -1,5 +1,6 @@
 from dataclasses import field
 from logging import PlaceHolder
+from tkinter import Widget
 from urllib import request
 from django import forms
 from citas_usuarios.widget import DatePickerInput,TimePickerInput
@@ -42,24 +43,24 @@ class CitaForm(forms.Form):
 
 class UserEditFrom(UserCreationForm):
 
-    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="Repita su Contraseña", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput,required=False)
+    password2 = forms.CharField(label="Repita su Contraseña", widget=forms.PasswordInput,required=False)
+    biografia = forms.CharField(label="Biografia",required=False)
+    avatar =forms.ImageField(label="Avatar",required=False)
     
     class Meta:
         model = User
-        fields =['email', 'first_name', 'last_name']
+        fields =('username',)
+        widget = {
+            "username":forms.CharField(required=False, help_text=False)
+        }
 
     def clean_password2(self):
-
         password2 = self.cleaned_data["password2"]
         if  password2 != self.cleaned_data["password2"]:
             raise forms.ValidationError("Las contraseñas no coicinden..")
-
         return password2
     
-    biografia = forms.CharField(label="Biografia")
-    
-    avatar =forms.ImageField(label="Avatar")
 
 class Localform(forms.Form):
     pais = forms.CharField(max_length=60)
