@@ -1,6 +1,9 @@
 from inspect import formatannotation
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from citas_usuarios.forms import Certificadoform
+from citas_usuarios.models import Certificado
+from veti_auth.models import Veterinario
 from citas_usuarios.forms import Localform
 from citas_usuarios.models import Local
 from citas_usuarios.forms import UserEditFrom
@@ -264,34 +267,74 @@ def eliminar_local(request, id):
         return HttpResponseRedirect('../locales')
 
 def modificar_local(request, id):
-
     local = Local.objects.get(id=id)
-
     if request.method == "POST":
-
-        miForm = Localform(request.POST)
-
+        miForm = Localform(request.POST, request.FILES)
         if miForm.is_valid():
-
             data = miForm.cleaned_data
-            
+
             local.pais = data["pais"]
             local.ciudad = data["ciudad"]
             local.zona = data["zona"]
             local.direccion = data["direccion"]
-            local.imagen = data["imagen"]
-            
+            if data["imagen"]:
+                image_path = local.imagen.path
+                if os.path.exists(image_path):
+                    os.remove(image_path)
+                local.imagen = data["imagen"]
+            else:
+                local.imagen = local.imagen
             local.save()
 
             return HttpResponseRedirect('../locales')
+
+        print(miForm.errors.get_json_data)
     else:
         miForm = Localform(initial={
-            "veterinario": local.veterinario,
             "pais": local.pais,
             "ciudad": local.ciudad,
             "zona": local.zona,   
             "direccion": local.direccion,
             "imagen":local.imagen
-            
         })
-        return render(request, "modifica_locales.html",{"miForm": miForm, "id": local.id})
+        return render(request, "modificar_locales.html",{"miForm": miForm, "id": local.id})
+
+
+
+
+@login_required
+def certificados(request):
+    if request.user.usuario.veterinario:
+        if request.method == 'POST':
+            form = Certificadoform(request.POST, request.FILES)
+            veterinario = request.user.usuario.veterinario
+            if form.is_valid() and veterinario:
+                info = form.cleaned_data
+                certificados_agregado = Certificado(veterinario=veterinario ,fecha = info['fecha'], imagen=info['imagen'])
+                certificados_agregado.save()
+                return HttpResponseRedirect('../')
+
+            print(form.errors.get_json_data)
+
+        certificados_form = Certificadoform()
+        certificados = Certificado.objects.all()
+
+        return render(request,'certificados.html', {'certificados_form':certificados_form,'lista_certificados': certificados})
+    else:
+        return HttpResponseRedirect("../")
+
+
+def eliminar_certificado(request, id):
+
+     if request.method == 'POST':
+
+        certificado = Certificado.objects.get(id=id)
+
+        certificado.delete()
+
+        certificados = Certificado.objects.all()
+
+        contexto = {"certificados": certificados}
+
+        return HttpResponseRedirect ("../certificados")
+
