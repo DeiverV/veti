@@ -59,3 +59,9 @@ class Localform(forms.Form):
     zona = forms.CharField(max_length=20)
     direccion = forms.CharField(max_length=100)
     imagen = forms.ImageField()
+
+
+class Certificadoform(forms.Form):
+    veterinario = forms.CharField(max_length=20)
+    imagen = forms.ImageField()
+    fecha = forms.DateField()
