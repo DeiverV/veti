@@ -7,12 +7,13 @@
         <div class="contenedor-info-usuario">
             <div class="contenedor-identidad-usuario">
                 <div class="contenedor-avatar">
-                    {% if usuario.usuario.avatar %}
-                        <img src="{{usuario.avatar.url}}" alt="">
+                    {% if user.avatar %}
+                    <img src="{{user.avatar.url}}" alt="" srcset="">
                     {% else %}
-                        <img src="{% static 'img/logoveti.png' %}" alt="">
+                        <img src="{% static 'icons/defaultavatar.png' %}" alt="" srcset="">
                     {% endif %}
                 </div>
+                <figure id="btn-editar-perfil"><a href=""><img src="{% static 'icons/editar.png' %}" alt=""></a></figure>
                 <div class="contenedor-nombre">
                     <h3>{{usuario.username}}</h3>
                     <p>{{usuario.usuario.edad}} Años</p>
@@ -33,13 +34,17 @@
                         <img src="{% static 'icons/paw.png' %}" alt="">
                         Agregar Una Mascota
                     </button>
+                    <a href="{% url 'mis_publicaciones' %}">
+                        <img src="{% static 'icons/publicacion.png' %}" alt="">
+                        Mis publicaciones
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="contenedor-mascotas-perfil">
             <div class="formateo-mascotas-perfil">
-                <h2>Mascotas de Username</h2>
+                <h2>Mascotas de {{Username}}</h2>
                 <div class="contenedor-lista-mascotas">
                     
                     {% for mascota in mascotas_usuario%}
@@ -54,7 +59,7 @@
                             <div class="contenedor-info-mascota">
                                 <h5>{{mascota.nombre}}</h5>
                                 <p>{{mascota.tipo_animal}} - {{mascota.raza}}</p>
-                                <p>{{mascota.edad}}</p>
+                                <p>{{mascota.edad}} Años</p>
                             </div>
                             <div class="botones-mascota">
                                 <form action="{% url 'elimina_mascota' mascota.id %}" method="POST">{% csrf_token %}

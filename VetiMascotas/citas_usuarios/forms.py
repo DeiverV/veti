@@ -1,9 +1,17 @@
 from dataclasses import field
+from logging import PlaceHolder
+from urllib import request
 from django import forms
 from citas_usuarios.widget import DatePickerInput,TimePickerInput
 from django.contrib.auth.forms import UserCreationForm
 from citas_usuarios.models import Mascota
 from django.contrib.auth.models import User
+from citas_usuarios.models import Mascota,Publicacion
+from dataclasses import Field, field
+from django import forms
+from citas_usuarios.widget import DatePickerInput,TimePickerInput
+
+from citas_usuarios.models import Cita, Mascota
 
 class UserForm(forms.Form):
     cedula = forms.IntegerField()   
@@ -65,3 +73,14 @@ class Certificadoform(forms.Form):
     veterinario = forms.CharField(max_length=20)
     imagen = forms.ImageField()
     fecha = forms.DateField()
+
+
+
+class PublicacionForm(forms.Form):
+    texto = forms.CharField(max_length=300,label=False, widget=forms.Textarea(attrs={'placeholder':"Que vas a compartir hoy? :D"}))
+    imagen = forms.ImageField(required=False)
+
+class CitaForm(forms.ModelForm):
+    class Meta:
+        model = Cita
+        fields = ('fecha', 'especialidad', 'local')
