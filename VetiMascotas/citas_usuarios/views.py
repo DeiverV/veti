@@ -309,7 +309,6 @@ def modificar_local(request, id):
         miForm = Localform(request.POST, request.FILES)
         if miForm.is_valid():
             data = miForm.cleaned_data
-
             local.veterinario = data["veterinario"]
             local.pais = data["pais"]
             local.ciudad = data["ciudad"]
@@ -325,9 +324,10 @@ def modificar_local(request, id):
             local.save()
 
             return HttpResponseRedirect('../locales')
+
+        print(miForm.errors.get_json_data)
     else:
         miForm = Localform(initial={
-            "veterinario": local.veterinario,
             "pais": local.pais,
             "ciudad": local.ciudad,
             "zona": local.zona,   
@@ -358,7 +358,28 @@ def certificados (request):
         return render(request, "certificados.html",{"miForm":miForm, "certificados":certificados })
 
 @login_required
-def eliminar_certificados(request, id):
+def certificados(request):
+    if request.user.usuario.veterinario:
+        if request.method == 'POST':
+            form = Certificadoform(request.POST, request.FILES)
+            veterinario = request.user.usuario.veterinario
+            if form.is_valid() and veterinario:
+                info = form.cleaned_data
+                certificados_agregado = Certificado(veterinario=veterinario ,fecha = info['fecha'], imagen=info['imagen'])
+                certificados_agregado.save()
+                return HttpResponseRedirect('../')
+
+            print(form.errors.get_json_data)
+
+        certificados_form = Certificadoform()
+        certificados = Certificado.objects.all()
+
+        return render(request,'certificados.html', {'certificados_form':certificados_form,'lista_certificados': certificados})
+    else:
+        return HttpResponseRedirect("../")
+
+def eliminar_certificado(request, id):
+
 
      if request.method == 'POST':
 

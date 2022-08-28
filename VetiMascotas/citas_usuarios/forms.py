@@ -67,7 +67,14 @@ class Localform(forms.Form):
     ciudad = forms.CharField(max_length=60)
     zona = forms.CharField(max_length=20)
     direccion = forms.CharField(max_length=100)
+    imagen = forms.ImageField(required=False)
+
+
+class Certificadoform(forms.Form):
+    veterinario = forms.CharField(max_length=20)
     imagen = forms.ImageField()
+    fecha = forms.DateField()
+
 
 
 class Certificadoform(forms.Form):
@@ -85,3 +92,4 @@ class CitaForm(forms.ModelForm):
     class Meta:
         model = Cita
         fields = ('fecha', 'especialidad', 'local')
+
