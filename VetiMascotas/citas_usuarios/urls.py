@@ -14,12 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import Locales, busqueda_cita, certificados, editarperfil, eliminar_certificado, eliminar_cita, eliminar_local, eliminar_mascota, eliminar_usuario, inicio, mascotas, modificar_cita, modificar_local, modificar_mascota, perfil, sobre_nosotros, usuarios,citas
+from .views import Locales,busqueda_cita, certificados, editarperfil, eliminar_certificado, eliminar_cita, eliminar_local, eliminar_mascota, eliminar_publicacion, eliminar_usuario, inicio, mascotas, modificar_cita, modificar_local, modificar_mascota, muro, perfil, publicaciones_propias, sobre_nosotros, usuarios,citas
+
 
 urlpatterns = [
     path('', inicio, name='inicio'),
     path('about-us', sobre_nosotros, name='sobre_nosotros'),
     path('perfil', perfil, name='perfil'),
+    path('muro/', muro, name='muro'),
+    path('mis_publicaciones/', publicaciones_propias, name='mis_publicaciones'),
+    path('eliminar_publicacion/<int:id>', eliminar_publicacion, name='eliminar_publicaciones'),
     path('usuarios/', usuarios, name='usuarios'),
     path('mascotas/', mascotas, name='mascotas'),
     path('citas/', citas, name='citas'),
@@ -34,6 +38,7 @@ urlpatterns = [
     path('elimina_local/<int:id>', eliminar_local, name='elimina_local'),
     path('modifica_local/<int:id>', modificar_local, name='modifica_local'),
     path('certificados/', certificados, name='certificados'),
-    path('elimina_certificado/<int:id>', eliminar_certificado, name='elimina_certificado')
+    path('elimina_certificado/<int:id>', eliminar_certificado, name='elimina_certificado'),
+
     
 ]
