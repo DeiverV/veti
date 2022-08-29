@@ -13,7 +13,6 @@
                         <img src="{% static 'icons/defaultavatar.png' %}" alt="" srcset="">
                     {% endif %}
                 </div>
-                <figure id="btn-editar-perfil"><a href="{% url 'editar_perfil' %}"><img src="{% static 'icons/editar.png' %}" alt=""></a></figure>
                 <div class="contenedor-nombre nombre-vet">
                     <h3>{{usuario}}</h3>
                     <p>{{usuario.edad}} Años</p>
@@ -28,24 +27,6 @@
                             Siendo usuario de Veti y amando mis mascotas!
                         {% endif %}
                     </p>
-                </div>
-                <div class="botones-perfil">
-                    <button id="abrir-crear-certificado">
-                        <img src="{% static 'icons/certificado.png' %}" alt="">
-                        Agregar Certificado
-                    </button>
-                    <button id="abrir-crear-local">
-                        <img src="{% static 'icons/clinica.png' %}" alt="">
-                        Agregar Local
-                    </button>
-                    <button id="abrir-crear-cita">
-                        <img src="{% static 'icons/calendario.png' %}" alt="">
-                        Abrir cita
-                    </button>
-                    <a href="{% url 'mis_publicaciones' %}">
-                        <img src="{% static 'icons/publicacion.png' %}" alt="">
-                        Mis publicaciones
-                    </a>
                 </div>
             </div>
         </div>
@@ -90,34 +71,5 @@
         </div>
     </div>
 
-    <div class="div-creacion-registro"  id="crear-certificacion-vet">
-        <button class="cerrar-menu-creacion-perfil" id="cerrar-cvet"><p>Atrás</p></button>
-        <h3>Sube un certificado.</h3>
-        <form class="formulario-creacion" action="{% url 'certificados' %}" enctype="multipart/form-data" method="post">
-            {% csrf_token %}
-            {{ certificados_form.as_p }}
-            <input type="submit" value="Crear">
-        </form>
-    </div>
-
-    <div class="div-creacion-registro"  id="crear-cita-vet">
-        <button class="cerrar-menu-creacion-perfil" id="cerrar-citavet"><p>Atrás</p></button>
-        <h3>Abre agenda para una cita.</h3>
-        <form class="formulario-creacion" action="{% url 'citas' %}" enctype="multipart/form-data" method="post">
-            {% csrf_token %}
-            {{ cita_form.as_p }}
-            <input type="submit" value="Crear">
-        </form>
-    </div>
-
-    <div class="div-creacion-registro"  id="crear-local-vet">
-        <button class="cerrar-menu-creacion-perfil" id="cerrar-lvet"><p>Atrás</p></button>
-        <h3>Crea tu local</h3>
-        <form class="formulario-creacion" action="{% url 'locales' %}" enctype="multipart/form-data" method="post">
-            {% csrf_token %}
-            {{ local_form.as_p }}
-            <input type="submit" value="Crear">
-        </form>
-    </div>
 {% endblock bloqueSeccion %}
     

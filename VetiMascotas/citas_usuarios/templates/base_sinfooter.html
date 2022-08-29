@@ -36,7 +36,11 @@
                 </form>
                 <a href="{% url 'logout' %}">Cerrar Sesión</a>
                 <a href="{% url 'sobre_nosotros' %}">Sobre nosotros</a>
+                {% if user.usuario.veterinario %}
+                <a href="{% url 'mis_citas' %}">Mis Citas</a>
+                {% else %}
                 <a href="{% url 'citas' %}">Citas</a>
+                {% endif %}
                 <a href="{% url 'muro' %}">Muro</a>
             {% else %}
             <div id="btns-auth-header">

@@ -1,15 +1,12 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from citas_usuarios.forms import Certificadoform
-from citas_usuarios.models import Certificado
-from veti_auth.models import Veterinario
 from citas_usuarios.forms import Localform
 from citas_usuarios.models import Local
 from citas_usuarios.forms import UserEditFrom
 from veti_auth.models import Usuario
 from django.contrib.auth.models import User
-from citas_usuarios.forms import UserForm,MascotaForm,CitaForm,PublicacionForm
-from citas_usuarios.models import Mascota,Cita,Publicacion
+from citas_usuarios.forms import UserForm,MascotaForm,CitaForm,PublicacionForm,AsignacionForm,Certificadoform
+from citas_usuarios.models import Mascota,Cita,Publicacion,Asignacion,Certificado,Veterinario
 from django.contrib.auth.decorators import login_required
 import os
 
@@ -21,7 +18,9 @@ def visita_perfil(request, idusuario):
     usuario = Usuario.objects.get(user_id=idusuario)
 
     if hasattr(usuario, 'veterinario'):
-        return render(request,'perfil_veterinario.html',{"usuario":usuario})
+        certificados = Certificado.objects.all()
+        locales = Local.objects.all()
+        return render(request,'perfil_veterinario_visita.html',{"usuario":usuario,"locales":locales,"certificados":certificados})
 
     mascotas_usuario = Mascota.objects.filter(amo=usuario)
     return render(request,'perfil_usuario.html',{"usuario":usuario,"mascotas_usuario":mascotas_usuario})
@@ -37,8 +36,19 @@ def perfil(request):
     user = request.user.usuario
 
     if hasattr(user, 'veterinario'):
-        return render(request,'perfil_veterinario.html',{"usuario":user})
+        local_form = Localform()
+        certificados_form= Certificadoform()
+        cita_form = CitaForm()
 
+        certificados = Certificado.objects.all()
+        locales = Local.objects.all()
+        return render(request,'perfil_veterinario.html',
+        {"usuario":user,
+        "local_form":local_form,"locales":locales,
+        "certificados_form":certificados_form,"certificados":certificados,
+        "cita_form":cita_form
+        })
+    
     mascotas_usuario = Mascota.objects.filter(amo=request.user.id)
     mascota_form = MascotaForm()
     return render(request,'perfil.html',{"usuario":user,"mascotas_usuario":mascotas_usuario,"mascota_form":mascota_form})
@@ -166,29 +176,27 @@ def citas(request):
         veterinario = request.user.usuario.veterinario
         if form.is_valid() and veterinario:
             info = form.cleaned_data    
-            if info['local'].veterinario == veterinario:
-                cita_agregada = Cita(veterinario = veterinario ,local=info['local'] ,fecha=info['fecha'] ,especialidad=info['especialidad'])
-                cita_agregada.save()
-                return HttpResponse
+            cita_agregada = Cita(veterinario = veterinario,local=info['local'] ,fecha=info['fecha'] ,especialidad=info['especialidad'])
+            cita_agregada.save()
+            return HttpResponseRedirect("../perfil")
+        else:
+            print(form.errors.get_json_data)
+            return HttpResponseRedirect("../")
+    else:
+        return render(request,"citas.html",{"citas":citas})
 
-    cita_form = CitaForm()
-    citas = Cita.objects.all
-    return render(request,'citas.html', {'cita_form':cita_form,'lista_citas':citas})
+@login_required
+def mis_citas(request):
+    citas = Cita.objects.filter(veterinario=request.user.usuario.veterinario)
+    return render(request,"mis_citas.html",{"citas":citas})
 
 @login_required
 def eliminar_cita(request, id):
 
     if request.method == 'POST':
-
         cita = Cita.objects.get(id=id)
-
         cita.delete()
-
-        citas = Cita.objects.all()
-
-        contexto = {"citas": citas}
-
-        return HttpResponseRedirect('../citas')
+        return HttpResponseRedirect('../mis_citas')
         
 @login_required
 def modificar_cita(request, id):
@@ -220,6 +228,19 @@ def modificar_cita(request, id):
             "especialidad": cita.especialidad,
         })
         return render(request, "modificar_cita.html",{"miForm": miForm, "id": cita.id})
+
+def asignacion_cita(request, idcita):
+    asignacion_form = AsignacionForm()
+    if request.method=='POST':
+        asignacion_form = AsignacionForm(request.POST)
+        cita = Cita.objects.get(id=idcita)
+        if asignacion_form.is_valid():
+            info = asignacion_form.cleaned_data
+            asignacion = Asignacion(cita=cita,cliente=request.user.usuario,mascota=info['mascota'])
+            asignacion.save()
+            return HttpResponseRedirect("../citas")
+    else:
+        return render(request,"asignacion_cita.html",{'asignacion_form':asignacion_form,'idcita':idcita})
 
 #----------------------------------------------------------------------------VISTAS DE MODELO USUARIOS
 
@@ -270,6 +291,7 @@ def eliminar_usuario(request, id):
         contexto = {"usuarios": usuarios}
         return HttpResponseRedirect ("../usuarios")
 
+#------------------------------------------------------------VISTA DE MODELO LOCALES
 
 @login_required
 def Locales(request):
@@ -278,15 +300,21 @@ def Locales(request):
             form = Localform(request.POST, request.FILES)
             veterinario = request.user.usuario.veterinario
             if form.is_valid() and veterinario:
+
                 info = form.cleaned_data
-                local_agregado = Local(veterinario=veterinario ,pais = info['pais'], ciudad=info['ciudad'], zona=info['zona'], direccion=info['direccion'], imagen=info['imagen'])
+
+                local_agregado = Local(
+                    veterinario=veterinario ,
+                    nombre=info['nombre'],
+                    pais = info['pais'], 
+                    ciudad=info['ciudad'], 
+                    zona=info['zona'], 
+                    direccion=info['direccion'], 
+                    imagen=info['imagen']
+                    )
+
                 local_agregado.save()
-                return HttpResponseRedirect('../')
-
-        local_form = Localform()
-        local = Local.objects.all()
-
-        return render(request,'locales.html', {'local_form':local_form,'lista_locales': local})
+                return HttpResponseRedirect('../perfil')
     else:
         return HttpResponseRedirect("../")
 
@@ -337,25 +365,7 @@ def modificar_local(request, id):
         return render(request, "modificar_locales.html",{"miForm": miForm, "id": local.id})
 
 
-@login_required
-def certificados (request):
-    certificados = request.user
-
-    if request.method == 'POST':
-
-        miForm = Certificadoform( request.POST, instance=request.user)
-        if miForm.is_valid():
-            data = miForm.cleaned_data
-
-            certificados.veterinario = data['veterinario']
-            certificados.imagen= data['imagen']
-            certificados.fecha = data['fecha']
-
-            certificados.save()
-            return render(request, "certificados.html")
-    else:
-        miForm= Certificadoform(instance=request.user)
-        return render(request, "certificados.html",{"miForm":miForm, "certificados":certificados })
+#------------------------------------------------------------VISTA DE MODELO CERTIFICADOS
 
 @login_required
 def certificados(request):
@@ -365,16 +375,11 @@ def certificados(request):
             veterinario = request.user.usuario.veterinario
             if form.is_valid() and veterinario:
                 info = form.cleaned_data
-                certificados_agregado = Certificado(veterinario=veterinario ,fecha = info['fecha'], imagen=info['imagen'])
+                certificados_agregado = Certificado(veterinario=veterinario ,nombre=info['nombre'],fecha = info['fecha'], imagen=info['imagen'])
                 certificados_agregado.save()
-                return HttpResponseRedirect('../')
-
-            print(form.errors.get_json_data)
-
-        certificados_form = Certificadoform()
-        certificados = Certificado.objects.all()
-
-        return render(request,'certificados.html', {'certificados_form':certificados_form,'lista_certificados': certificados})
+                return HttpResponseRedirect('../perfil')
+            else:
+                return HttpResponseRedirect("../")
     else:
         return HttpResponseRedirect("../")
 

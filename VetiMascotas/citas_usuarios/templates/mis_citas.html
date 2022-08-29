@@ -1,0 +1,60 @@
+{% extends 'base_sinfooter.html' %}
+
+{% load static %}
+
+{% block bloqueSeccion %}
+    <div id="contenedor-muro">
+        <div id="contenedor-publicaciones" class="publicaciones-propias">
+            {% for cita in citas%}
+                <div class="cita">
+                    <div class="info-cita">
+                        <div class="info-interna-cita">
+                            <h3>{{cita.especialidad}}</h3>
+                            <p>{{cita.local}}</p>
+                        </div>
+                        
+                        <div class="info-interna-cita segunda-info-cita">
+                            <a href="{% url 'perfil-usuario' cita.veterinario.user_id.user_id.id %}"><h3>{{cita.veterinario}}</h3></a>
+                            <p>{{cita.fecha}}</p>
+                        </div>
+                    </div>
+                    
+                    {% if cita.asignacion %}
+                        <div class="info-cita cita-asignada">
+                            <div class="info-interna-cita">
+                                <h3>Asignada</h3>
+                            </div>
+                            <div class="info-interna-cita segunda-info-cita">
+                                <h3>{{cita.asignacion.paciente}}</h3>
+                                <p>{{cita.asignacion.mascota}}</p>
+                            </div>
+                            <form action="{% url 'elimina_cita' cita.id %}" class="imagen-usuario-publicacion btn-eliminar-publi" method="POST">{% csrf_token %}
+                                <button type="submit"><img src="{% static 'icons/delete.png' %}" alt="eliminar"></button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="info-cita  cita-no-asignada">
+                            <div class="info-interna-cita">
+                                <h3>Sin Asignar</h3>
+                            </div>
+                            <div class="info-interna-cita segunda-info-cita">
+                                <h3>NN</h3>
+                            </div>
+                            <form action="{% url 'elimina_cita' cita.id %}" class="imagen-usuario-publicacion btn-eliminar-publi" method="POST">{% csrf_token %}
+                                <button type="submit"><img src="{% static 'icons/delete.png' %}" alt="eliminar"></button>
+                            </form>
+                        </div>
+                    {% endif %}
+                        
+                </div>
+                
+            {% empty %}
+
+                <div class="contenedor-no-hay-que-mostrar">
+                    <p>¡No has creado ninguna cita aun!</p>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock bloqueSeccion %}

@@ -23,21 +23,29 @@ class Publicacion(models.Model):
 
 class Local(models.Model):
     veterinario = models.ForeignKey(Veterinario, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=30)
     pais = models.CharField(max_length=60)
     ciudad = models.CharField(max_length=60)
     zona = models.CharField(max_length=20)
     direccion = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to="locales",blank=True)
 
+    def __str__(self) -> str:
+        return f'{self.nombre}'
+
 class Cita(models.Model):
     veterinario = models.ForeignKey(Veterinario, on_delete=models.CASCADE)
-    cliente  = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True)
-    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, blank=True)
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
     fecha = models.DateTimeField()
-    especialidad = models.ImageField(max_length=100)
+    especialidad = models.CharField(max_length=100)
+
+class Asignacion(models.Model):
+    cita= models.ForeignKey(Cita,on_delete=models.CASCADE)
+    cliente  = models.ForeignKey(Usuario, on_delete=models.CASCADE, blank=True)
+    mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE, blank=True)
 
 class Certificado(models.Model):
     veterinario = models.ForeignKey(Veterinario, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=30)
     imagen = models.ImageField(upload_to="certificados",blank=True)
     fecha = models.DateField()

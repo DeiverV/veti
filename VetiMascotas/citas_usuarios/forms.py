@@ -1,14 +1,12 @@
 from dataclasses import field
-from logging import PlaceHolder
 from tkinter import Widget
-from urllib import request
+from turtle import width
 from django import forms
 from citas_usuarios.widget import DatePickerInput,TimePickerInput
 from django.contrib.auth.forms import UserCreationForm
 from citas_usuarios.models import Mascota
 from django.contrib.auth.models import User
-from citas_usuarios.models import Mascota,Publicacion
-from dataclasses import Field, field
+from citas_usuarios.models import Mascota,Publicacion,Certificado,Local,Asignacion
 from django import forms
 from citas_usuarios.widget import DatePickerInput,TimePickerInput
 
@@ -33,14 +31,6 @@ class MascotaForm(forms.Form):
         self.fields['Foto'].widget.input_text = "Cambiar Imagen"
 
 
-class CitaForm(forms.Form):
-    veterinario = forms.CharField(max_length=30)
-    local = forms.CharField()
-    fecha = forms.DateTimeField(widget=DatePickerInput)
-    hora = forms.TimeField(widget=TimePickerInput) 
-    especialidad = forms.CharField(max_length=30)
-
-
 class UserEditFrom(UserCreationForm):
 
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput,required=False)
@@ -62,27 +52,15 @@ class UserEditFrom(UserCreationForm):
         return password2
     
 
-class Localform(forms.Form):
-    pais = forms.CharField(max_length=60)
-    ciudad = forms.CharField(max_length=60)
-    zona = forms.CharField(max_length=20)
-    direccion = forms.CharField(max_length=100)
-    imagen = forms.ImageField(required=False)
+class Localform(forms.ModelForm):
+    class Meta:
+        model = Local
+        fields = ('nombre', 'pais', 'ciudad','zona','direccion','imagen')
 
-
-class Certificadoform(forms.Form):
-    veterinario = forms.CharField(max_length=20)
-    imagen = forms.ImageField()
-    fecha = forms.DateField()
-
-
-
-class Certificadoform(forms.Form):
-    veterinario = forms.CharField(max_length=20)
-    imagen = forms.ImageField()
-    fecha = forms.DateField()
-
-
+class Certificadoform(forms.ModelForm):
+    class Meta:
+        model = Certificado
+        fields = ('nombre', 'fecha', 'imagen')
 
 class PublicacionForm(forms.Form):
     texto = forms.CharField(max_length=300,label=False, widget=forms.Textarea(attrs={'placeholder':"Que vas a compartir hoy? :D"}))
@@ -93,3 +71,7 @@ class CitaForm(forms.ModelForm):
         model = Cita
         fields = ('fecha', 'especialidad', 'local')
 
+class AsignacionForm(forms.ModelForm):
+    class Meta:
+        model=Asignacion
+        fields = ('mascota',)

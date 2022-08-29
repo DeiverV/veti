@@ -1105,7 +1105,9 @@ footer{
 /*------------------------------------------------------------------------------------------------PERFIL VETERINARIO*/
 
 .contenedor-info-vet{
+    margin-right: 5%;
     box-shadow: 0 0 20px 1px var(--color7);
+    width: 25%;
 }
 
 .nombre-vet{
@@ -1115,6 +1117,144 @@ footer{
 .bio-vet{
     border-bottom: 3px solid var(--color7);
 }
+
+.contenedor-pertenencias-vet{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#crear-certificacion-vet{
+    position: absolute;
+    width: 0%;
+    height: 0%;
+    overflow: hidden;
+    transition: .5s;
+    padding: 3vh 0;
+}
+
+#crear-local-vet{
+    position: absolute;
+    width: 0%;
+    height: 0%;
+    overflow: hidden;
+    transition: .5s;
+    padding: 3vh 0;
+}
+
+#crear-cita-vet{
+    position: absolute;
+    width: 0%;
+    height: 0%;
+    overflow: hidden;
+    transition: .5s;
+    padding: 3vh 0;
+}
+
+
+/*----------SLIDER */
+
+.contenedor-slider{
+    width: 90%;
+    height: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.contenedor-elementos-slider{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    position: relative;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.contenedor-slider h2{
+    font-family: 'Josefin-Bold-Italic';
+    border-left: 3px solid black;
+    padding-left: 15px;
+}
+
+.certificacion{
+    width: 300px;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    box-shadow: 0 0 20px #00000042;
+}
+
+.imagen-certificado{
+    width: 100%;
+    height: 70%;
+    display: grid;
+    place-items: center;
+}
+
+.imagen-certificado img{
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.info-certificado{
+    width: 100%;
+    height: 20%;
+    font-family: Josefin-medium-italic;
+    font-size: 1.5em;
+    background: var(--color7);
+    display: grid;
+    place-items: center;
+}
+
+.info-certificado h5{
+    margin: 0;
+}
+
+.info-certificado p{
+    margin: 0;
+}
+
+.next-in-slider{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color7);
+    display: grid;
+    place-items: center;
+    font-family: 'vetitittle';
+    font-size: 1.5em;
+    position: relative;
+    top: -50%;
+    cursor: pointer;
+}
+
+.prev-in-slider{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color7);
+    display: grid;
+    place-items: center;
+    font-family: 'vetitittle';
+    font-size: 1.5em;
+    position: relative;
+    top: -66%;
+    right: -80%;
+    cursor: pointer;
+}
+
+.contenedor-vet{
+    margin-bottom: 50px !important;
+}
+
 
 /*-------------------------------------------------------------------------------------EDITAR MASCOTAS*/
 
@@ -1134,6 +1274,64 @@ footer{
     text-decoration: none;
 }
 
+/*---------------------------------------------------------------------------------------CITAS*/
+
+.cita{
+    width: 90%;
+    height: 100px;
+    background: yellowgreen;
+    border-radius: 30px;
+    box-shadow: 0 0 20px black;
+    margin-bottom: 30px;
+    display: flex;
+    overflow: hidden;
+    font-family: 'Josefin-medium';
+}
+
+.info-cita{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    align-items: center;
+}
+
+.info-interna-cita{
+    width: 45%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info-interna-cita p{
+    margin: 0 0 0 10px;
+    font-size: 1.2em;
+}
+
+.info-interna-cita h3{
+    margin: 0 0 0 10px;
+}
+
+.segunda-info-cita{
+    align-items: flex-end;
+}
+
+.cita-asignada{
+    color: white;
+    background-color: #1FD126;
+}
+
+.cita-no-asignada{
+    color: white;
+    background-color: #D11F1F;
+}
+
+.cita-por-asignar{
+    color: white;
+    background-color: var(--color1);
+}
 /*--------------------------------------------------------------------------------------MURO*/
 #contenedor-muro{
     width: 100%;

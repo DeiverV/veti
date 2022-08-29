@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import Locales,busqueda_cita, certificados, editar_perfil,eliminar_certificado, eliminar_cita, eliminar_local, eliminar_mascota, eliminar_publicacion, eliminar_usuario, inicio, mascotas, modificar_cita, modificar_local, modificar_mascota, muro, perfil, publicaciones_propias, sobre_nosotros,citas, visita_perfil
+from .views import Locales, asignacion_cita,busqueda_cita, certificados, editar_perfil,eliminar_certificado, eliminar_cita, eliminar_local, eliminar_mascota, eliminar_publicacion, eliminar_usuario, inicio, mascotas, mis_citas, modificar_cita, modificar_local, modificar_mascota, muro, perfil, publicaciones_propias, sobre_nosotros,citas, visita_perfil
 
 
 urlpatterns = [
@@ -28,16 +28,16 @@ urlpatterns = [
     path('mascotas/', mascotas, name='mascotas'),
     path('elimina_mascota/<int:id>', eliminar_mascota, name='elimina_mascota'),
     path('modifica_mascota/<int:id>', modificar_mascota, name='modifica_mascota'),
-
-
     path('editarperfil/', editar_perfil, name="editar_perfil"),
-
     path('citas/', citas, name='citas'),
+    path('mis_citas/', mis_citas, name='mis_citas'),
     path('elimina_cita/<int:id>', eliminar_cita, name='elimina_cita'),
+    path('asignacion_cita/<int:idcita>', asignacion_cita, name='asignacion_cita'),
+    path('locales/', Locales, name='locales'),
+
     path('modifica_cita/<int:id>', modificar_cita, name='modifica_cita'),
     path('elimina_usuario/<int:id>', eliminar_usuario, name='elimina_usuario'),
     path('busqueda/>', busqueda_cita, name='busqueda_cita'),
-    path('locales/', Locales, name='locales'),
     path('elimina_local/<int:id>', eliminar_local, name='elimina_local'),
     path('modifica_local/<int:id>', modificar_local, name='modifica_local'),
     path('certificados/', certificados, name='certificados'),

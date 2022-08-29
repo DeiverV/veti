@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block bloqueSeccion %}
+
+    <div class="div-creacion-registro">
+        <h3>Asignar Cita!</h3>
+        <form  class="formulario-creacion" action="{% url 'asignacion_cita' idcita %}" method="POST"> {% csrf_token %}
+            {{asignacion_form.as_p}}
+            <input type="submit" value="Guardar">
+        </form>
+    </div>
+
+{% endblock bloqueSeccion %}
