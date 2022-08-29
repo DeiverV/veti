@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from veti_auth.models import Usuario
-from citas_usuarios.forms import MascotaForm,CitaForm,PublicacionForm,AsignacionForm,Certificadoform,Localform,UserEditFrom
+from citas_usuarios.forms import MascotaForm,CitaForm,PublicacionForm,AsignacionForm,Certificadoform,Localform,UserEditFrom,UserCreationForm
 from citas_usuarios.models import Mascota,Cita,Publicacion,Asignacion,Certificado,Veterinario,Local
 from django.contrib.auth.decorators import login_required
 import os
@@ -34,7 +34,7 @@ def perfil(request):
     user = request.user.usuario
 
     if hasattr(user, 'veterinario'):
-        local_form = Localform()
+        local_form = Localform(veterinario=user.veterinario)
         certificados_form= Certificadoform()
         cita_form = CitaForm()
 
@@ -271,15 +271,20 @@ def editar_perfil(request):
     usuario = request.user
     cliente = request.user.usuario
     if request.method == 'POST':
+        
         miForm = UserEditFrom( request.POST, request.FILES, instance=request.user)
         if miForm.is_valid():
 
             data = miForm.cleaned_data
-
+            if data['password1'] and data['password2']:
+                if data['password1'] == data['password2']:
+                    usuario.password = data['password1']
+                    
             usuario.username= data['username']
             usuario.save()
 
             cliente.biografia = data['biografia']
+            usuario.password = data["password1"]
             if data["avatar"] and cliente.avatar:
                 image_path = cliente.avatar.path
                 if os.path.exists(image_path):
@@ -290,9 +295,11 @@ def editar_perfil(request):
             else:
                 cliente.avatar = cliente.avatar
             cliente.save()
+            
 
             return HttpResponseRedirect("../perfil")
-        
+    
+
         print(miForm.errors.get_json_data)
         return HttpResponseRedirect("./")
     else:
@@ -423,4 +430,3 @@ def eliminar_certificado(request, id):
         contexto = {"certificados": certificados}
 
         return HttpResponseRedirect ("../certificados")
-

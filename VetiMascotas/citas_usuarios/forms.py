@@ -61,17 +61,50 @@ class Certificadoform(forms.ModelForm):
     class Meta:
         model = Certificado
         fields = ('nombre', 'fecha', 'imagen')
+        widgets = {
+            'fecha' : forms.TextInput(
+                attrs={
+                    'placeholder': "Año-Mes-Dia"
+                }
+            )
+        }
 
 class PublicacionForm(forms.Form):
     texto = forms.CharField(max_length=300,label=False, widget=forms.Textarea(attrs={'placeholder':"Que vas a compartir hoy? :D"}))
     imagen = forms.ImageField(required=False)
 
 class CitaForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        veterinario = kwargs.pop('veterinario')
+        super(AsignacionForm, self).__init__(*args, **kwargs)
+        self.fields['local'] = forms.ModelMultipleChoiceField(
+                required=True,
+                queryset=Mascota.objects.filter(veterinario=veterinario),
+                widget=forms.SelectMultiple())
+
     class Meta:
         model = Cita
         fields = ('fecha', 'especialidad', 'local')
+        widgets = {
+            'fecha' : forms.TextInput(
+                attrs={
+                    'placeholder': "Año-Mes-Dia Hs:Mins:Segs"
+                }
+            )
+        }
 
 class AsignacionForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        amo = kwargs.pop('amo')
+        super(AsignacionForm, self).__init__(*args, **kwargs)
+        self.fields['mascota'] = forms.ModelMultipleChoiceField(
+                required=True,
+                queryset=Mascota.objects.filter(amo=amo),
+                widget=forms.SelectMultiple())
+
+
     class Meta:
         model=Asignacion
         fields = ('mascota',)
