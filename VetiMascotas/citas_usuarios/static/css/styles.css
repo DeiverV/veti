@@ -1332,6 +1332,18 @@ footer{
     color: white;
     background-color: var(--color1);
 }
+
+/*---------------------------------------------------------------ASIGNACION CITAS*/
+
+.asignacion-container{
+    width: 100%;
+    height: 60vh;
+}
+
+.formulario-asignacion{
+    width: 60%;
+}
+
 /*--------------------------------------------------------------------------------------MURO*/
 #contenedor-muro{
     width: 100%;

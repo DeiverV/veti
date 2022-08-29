@@ -5,9 +5,10 @@
 
 {% block bloqueSeccion %}
 
-    <div class="div-creacion-registro">
+    <div class="div-creacion-registro asignacion-container">
         <h3>Asignar Cita!</h3>
-        <form  class="formulario-creacion" action="{% url 'asignacion_cita' idcita %}" method="POST"> {% csrf_token %}
+        <h3>¿Cual mascota necesita la cita?</h3>
+        <form  class="formulario-creacion formulario-asignacion" action="{% url 'asignacion_cita' idcita %}" method="POST"> {% csrf_token %}
             {{asignacion_form.as_p}}
             <input type="submit" value="Guardar">
         </form>

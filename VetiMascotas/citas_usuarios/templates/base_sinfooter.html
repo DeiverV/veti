@@ -17,7 +17,7 @@
                 <img src="{% static 'img/logoveti.png' %}" alt="logo">
                 <h1>Veti </h1>
             </a>
-            {% if user %}
+            {% if user.usuario %}
             <a href="{% url 'perfil' %}" class="div-container-tittle">
                 <p>{{user}}</p>
                 {% if user.usuario.avatar %}
@@ -29,7 +29,7 @@
             {% endif %}
         </div>
         <nav id="barra_navegacion">
-            {% if user %}
+            {% if user.usuario %}
                 <form action="{% url 'busqueda_cita' %}" method="GET">
                     <input type="text" id="header_input_busqueda_citas" name="header_input_busqueda_citas" placeholder="Busca una cita">
                     <input type="submit" value="Buscar" id="hacer_busqueda_submit">
