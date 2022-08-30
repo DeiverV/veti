@@ -15,3 +15,6 @@ Grupo:
 Descripcion de roles:
 
 Entre los 3 nos dividimos las tareas del back, tanto en vistas, modelos y templates de la siguiente manera: Tiziano realizó las funcionalidades respectivas a CRUD de Certificaciones y locales de Veterinarios y trabajó en la edicion de perfiles. Fabricio, Se encargó de las funcionalidades de CRUD de mascotas y citas, apoyando tambien en otras tareas que tuviera problema el equipo y Deiber se encargó de la app de autenticacion, de la configuracion de los modelos y la BD, las publicaciones y el Frontend.
+
+VIDEO:
+https://youtu.be/_iqfHm0v8hk
