@@ -1,9 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from veti_auth.models import Usuario
-from citas_usuarios.forms import MascotaForm,CitaForm,PublicacionForm,AsignacionForm,Certificadoform,Localform,UserEditFrom,UserCreationForm
+from citas_usuarios.forms import MascotaForm,CitaForm,PublicacionForm,AsignacionForm,Certificadoform,Localform,UserEditFrom,UserEditFrom
 from citas_usuarios.models import Mascota,Cita,Publicacion,Asignacion,Certificado,Veterinario,Local
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 import os
 
 #-------------------------------------------------------------------------------VISTAS QUE RENDERIZAN PAGINAS DE INFO
@@ -298,7 +299,28 @@ def editar_perfil(request):
             
 
             return HttpResponseRedirect("../perfil")
-    
+        
+        userForm = UserEditFrom({
+            "username":data["username"],
+            "password1":data["password1"],
+            "password2":data["password2"]
+        })
+        
+        if miForm.is_valid() and userForm.is_valid:
+            
+            data= miForm.cleaned_data
+
+            data.update(
+                userForm.changed_data
+            )
+            
+            user = User(
+                username=data["username"],
+            )
+
+            user.set_password(data["password1"])
+            user.save
+
 
         print(miForm.errors.get_json_data)
         return HttpResponseRedirect("./")
