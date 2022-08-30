@@ -2,6 +2,8 @@
 
 Este proyecto es una plataforma de acceso libre para que usuarios puedan compartir su amor por sus mascotas, conocer gente nueva y buscar veterinarios tambien podiendo asignarse citas con ellos. según disponibilidad. Todo lo trabajamos para que fuera muy sencillo para los usuarios e intuitivo. Es muy sencillo registrarse y loguearse para acceder a las funcionalidades. Actualmente puede estar sujeta a algunos fallos por falta de tiempo, pero es muy funcional.
 
+¡La base de datos ya está corriendo porque está hosteada en heroku!
+
 la url principal es veti/
 
 Grupo:
