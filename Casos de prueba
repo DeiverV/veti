@@ -1,0 +1,16 @@
+##Veti Casos Prueba!
+
+CASO DE PRUEBA 1
+Intento de modificacion de contraseña con dos claves diferentes.
+  -Se probó la funcionalidad de cambio de contraseña intentando obtener errores para poder manejarlos de una manera oportuna, gracias a las pruebas nos dimos cuenta 
+  de algunos errores de logica, los cuales pudimos solucionar y tambien hacer manejo de errores que son errores por parte de usuario.
+ 
+CASO DE PRUEBA 2
+Pruebas en cambio de imagen en mascota.
+  -Se hicieron pruebas de modificacion de mascotas obteniendo errores en el cambio de imagen de la misma por problemas que venian de la configuracion del
+  form. Se pudieron corregir los errores también dandonos cuenta de que teniamos que agregar una funcionalidad de limpiado de imagenes en desuso dentro del servidor
+
+CASO DE PRUEBA 3
+Pruebas de creacion de usuarios clientes y veterinarios.
+  -Ya creado el register se hicieron varias pruebas al intentar crear usuarios con diferentes caracteristicas con el fin de poder bloquear funcionalidades en templates.
+  Algunos errores de logica con la BD se encontraron pero fueron solucionados a tiempo, como por ejemplo como funcionaban las herencias con la FK.
