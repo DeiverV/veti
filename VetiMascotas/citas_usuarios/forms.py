@@ -76,12 +76,12 @@ class PublicacionForm(forms.Form):
 class CitaForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        veterinario = kwargs.pop('veterinario')
-        super(AsignacionForm, self).__init__(*args, **kwargs)
-        self.fields['local'] = forms.ModelMultipleChoiceField(
+        veterinario_local = kwargs.pop('veterinario_local')
+        super(CitaForm, self).__init__(*args, **kwargs)
+        self.fields['local'] = forms.ModelChoiceField(
                 required=True,
-                queryset=Mascota.objects.filter(veterinario=veterinario),
-                widget=forms.SelectMultiple())
+                queryset=Local.objects.filter(veterinario=veterinario_local),
+                widget=forms.Select())
 
     class Meta:
         model = Cita
@@ -99,11 +99,10 @@ class AsignacionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         amo = kwargs.pop('amo')
         super(AsignacionForm, self).__init__(*args, **kwargs)
-        self.fields['mascota'] = forms.ModelMultipleChoiceField(
+        self.fields['mascota'] = forms.ModelChoiceField(
                 required=True,
                 queryset=Mascota.objects.filter(amo=amo),
-                widget=forms.SelectMultiple())
-
+                widget=forms.Select())
 
     class Meta:
         model=Asignacion
