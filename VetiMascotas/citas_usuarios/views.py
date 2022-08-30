@@ -35,9 +35,9 @@ def perfil(request):
     user = request.user.usuario
 
     if hasattr(user, 'veterinario'):
-        local_form = Localform(veterinario=user.veterinario)
+        local_form = Localform()
         certificados_form= Certificadoform()
-        cita_form = CitaForm()
+        cita_form = CitaForm(veterinario_local=user.veterinario)
 
         certificados = Certificado.objects.filter(veterinario=user.veterinario)
         locales = Local.objects.filter(veterinario=user.veterinario)
@@ -174,14 +174,16 @@ def modificar_mascota(request, id):
 @login_required
 def citas(request):
     if request.method == 'POST':
-        form = CitaForm(request.POST)
         veterinario = request.user.usuario.veterinario
+        form = CitaForm(request.POST,veterinario_local=veterinario)
         if form.is_valid() and veterinario:
             info = form.cleaned_data    
             cita_agregada = Cita(veterinario = veterinario,local=info['local'] ,fecha=info['fecha'] ,especialidad=info['especialidad'])
             cita_agregada.save()
             return HttpResponseRedirect("../mis_citas")
         else:
+            print(form.errors.get_json_data)
+            print(form)
             return HttpResponseRedirect("../")
     else:
         citas = Cita.objects.all()
@@ -252,15 +254,18 @@ def modificar_cita(request, id):
 
 #-------------------------------------------------------------------------------VISTA QUE ASIGNA CITAS
 def asignacion_cita(request, idcita):
-    asignacion_form = AsignacionForm()
+    asignacion_form = AsignacionForm(amo=request.user.usuario)
     if request.method=='POST':
-        asignacion_form = AsignacionForm(request.POST)
+        asignacion_form = AsignacionForm(request.POST,amo=request.user.usuario)
         cita = Cita.objects.get(id=idcita)
         if asignacion_form.is_valid():
             info = asignacion_form.cleaned_data
             asignacion = Asignacion(cita=cita,cliente=request.user.usuario,mascota=info['mascota'])
             asignacion.save()
             return HttpResponseRedirect("../citas")
+        else:
+            print(asignacion_form.errors.get_json_data)
+            return HttpResponseRedirect("../citas") 
     else:
         return render(request,"asignacion_cita.html",{'asignacion_form':asignacion_form,'idcita':idcita})
 
@@ -279,13 +284,12 @@ def editar_perfil(request):
             data = miForm.cleaned_data
             if data['password1'] and data['password2']:
                 if data['password1'] == data['password2']:
-                    usuario.password = data['password1']
+                    usuario.set_password(data['password1'])
                     
             usuario.username= data['username']
             usuario.save()
 
             cliente.biografia = data['biografia']
-            usuario.password = data["password1"]
             if data["avatar"] and cliente.avatar:
                 image_path = cliente.avatar.path
                 if os.path.exists(image_path):
@@ -300,26 +304,26 @@ def editar_perfil(request):
 
             return HttpResponseRedirect("../perfil")
         
-        userForm = UserEditFrom({
-            "username":data["username"],
-            "password1":data["password1"],
-            "password2":data["password2"]
-        })
+        # userForm = UserEditFrom({
+        #     "username":data["username"],
+        #     "password1":data["password1"],
+        #     "password2":data["password2"]
+        # })
         
-        if miForm.is_valid() and userForm.is_valid:
+        # if miForm.is_valid() and userForm.is_valid:
             
-            data= miForm.cleaned_data
+        #     data= miForm.cleaned_data
 
-            data.update(
-                userForm.changed_data
-            )
+        #     data.update(
+        #         userForm.changed_data
+        #     )
             
-            user = User(
-                username=data["username"],
-            )
+        #     user = User(
+        #         username=data["username"],
+        #     )
 
-            user.set_password(data["password1"])
-            user.save
+        #     user.set_password(data["password1"])
+        #     user.save
 
 
         print(miForm.errors.get_json_data)

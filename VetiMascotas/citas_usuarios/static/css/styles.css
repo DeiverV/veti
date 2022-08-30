@@ -783,7 +783,8 @@ footer{
 
 .img-developer img{
     width: 18vh;
-    object-fit: contain;
+    height: 18vh;
+    object-fit: cover;
     border-radius: 50%;
 }
 
